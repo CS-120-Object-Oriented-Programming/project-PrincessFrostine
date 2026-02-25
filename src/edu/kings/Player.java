@@ -8,17 +8,18 @@ package edu.kings;
  * 
  */
 public class Player {
-    String room = "Garden";
-	public Player(String room) {
+    Room room;
+   
+	public Player(Room room) {
 		this.room = room;	
 	}
 	
-	public String getRoom() {
+	public Room getRoom() {
 		return (room);
 		
 	}
 	
-	public void setRoom(String room) {
+	public void setRoom(Room room) {
 		this.room = room;
 	}
 	

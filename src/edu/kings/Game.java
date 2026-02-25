@@ -14,20 +14,20 @@ package edu.kings;
  *
  * Used with permission from Dr. Maria Jump at Northeastern University
  */
-
+// Collei.getRoom  Collei.setRoom
 public class Game {
 	/** The world where the game takes place. */
 	private World world;
 	/** The room the player character is currently in. */
-	private Room currentRoom;
-
+		Player Collei;
+	
 	/**
 	 * Create the game and initialize its internal map.
 	 */
 	public Game() {
 		world = new World();
 		// set the starting room
-		currentRoom = world.getRoom("outside");
+		Collei = new Player(world.getRoom("outside"));
 	}
 
 	/**
@@ -99,23 +99,23 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = currentRoom.northExit;
+				doorway = Collei.getRoom().northExit;
 			}
 			if (direction.equals("east")) {
-				doorway = currentRoom.eastExit;
+				doorway = Collei.getRoom().eastExit;
 			}
 			if (direction.equals("south")) {
-				doorway = currentRoom.southExit;
+				doorway = Collei.getRoom().southExit;
 			}
 			if (direction.equals("west")) {
-				doorway = currentRoom.westExit;
+				doorway = Collei.getRoom().westExit;
 			}
 
 			if (doorway == null) {
 				Writer.println("There is no door!");
 			} else {
 				Room newRoom = doorway.getDestination();
-				currentRoom = newRoom;
+				Collei.setRoom(newRoom);
 				Writer.println(newRoom.getName() + ":");
 				Writer.println("You are " + newRoom.getDescription());
 				Writer.print("Exits: ");
@@ -165,19 +165,19 @@ public class Game {
 		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
 		Writer.println("Type 'help' if you need help.");
 		Writer.println();
-		Writer.println(currentRoom.getName() + ":");
-		Writer.println("You are " + currentRoom.getDescription());
+		Writer.println(Collei.getRoom().getName() + ":");
+		Writer.println("You are " + Collei.getRoom().getDescription());
 		Writer.print("Exits: ");
-		if (currentRoom.northExit != null) {
+		if (Collei.getRoom().northExit != null) {
 			Writer.print("north ");
 		}
-		if (currentRoom.eastExit != null) {
+		if (Collei.getRoom().eastExit != null) {
 			Writer.print("east ");
 		}
-		if (currentRoom.southExit != null) {
+		if (Collei.getRoom().southExit != null) {
 			Writer.print("south ");
 		}
-		if (currentRoom.westExit != null) {
+		if (Collei.getRoom().westExit != null) {
 			Writer.print("west ");
 		}
 		Writer.println("");
