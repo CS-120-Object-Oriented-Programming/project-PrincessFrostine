@@ -20,7 +20,12 @@ public class Game {
 	private World world;
 	/** The room the player character is currently in. */
 		Player collei;
-	
+	/**
+	 * Prints out the location information
+	 */
+		private void look() {
+			
+		}
 	/**
 	 * Create the game and initialize its internal map.
 	 */
@@ -59,7 +64,7 @@ public class Game {
 	 */
 	private boolean processCommand(Command command) {
 		boolean wantToQuit = false;
-
+		
 		if (command.isUnknown()) {
 			Writer.println("I don't know what you mean...");
 		} else {
@@ -71,6 +76,8 @@ public class Game {
 				goRoom(command);
 			} else if (commandWord.equals("quit")) {
 				wantToQuit = quit(command);
+			} else if (commandWord.equals("look")) {
+		
 			} else {
 				Writer.println(commandWord + " is not implemented yet!");
 			}
@@ -116,22 +123,7 @@ public class Game {
 			} else {
 				Room newRoom = doorway.getDestination();
 				collei.setRoom(newRoom);
-				Writer.println(newRoom.getName() + ":");
-				Writer.println("You are " + newRoom.getDescription());
-				Writer.print("Exits: ");
-				if (newRoom.northExit != null) {
-					Writer.print("north ");
-				}
-				if (newRoom.eastExit != null) {
-					Writer.print("east ");
-				}
-				if (newRoom.southExit != null) {
-					Writer.print("south ");
-				}
-				if (newRoom.westExit != null) {
-					Writer.print("west ");
-				}
-				Writer.println();
+				printLocationInformation();
 			}
 		}
 	}
@@ -165,6 +157,22 @@ public class Game {
 		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
 		Writer.println("Type 'help' if you need help.");
 		Writer.println();
+		printLocationInformation();
+	}
+
+	/**
+	 * "Quit" was entered. Check the rest of the command to see whether we
+	 * really quit the game.
+	 *
+	 * @param command
+	 *            The command to be processed.
+	 * @return true, if this command quits the game, false otherwise.
+	 */
+	
+	/**
+	* Prints out the current location and exits.
+	*/
+	private void printLocationInformation() {
 		Writer.println(collei.getRoom().getName() + ":");
 		Writer.println("You are " + collei.getRoom().getDescription());
 		Writer.print("Exits: ");
@@ -182,15 +190,10 @@ public class Game {
 		}
 		Writer.println("");
 	}
-
-	/**
-	 * "Quit" was entered. Check the rest of the command to see whether we
-	 * really quit the game.
-	 *
-	 * @param command
-	 *            The command to be processed.
-	 * @return true, if this command quits the game, false otherwise.
-	 */
+	
+	
+	
+	
 	private boolean quit(Command command) {
 		boolean wantToQuit = true;
 		if (command.hasSecondWord()) {
