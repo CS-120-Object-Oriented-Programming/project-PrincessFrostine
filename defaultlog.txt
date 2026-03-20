@@ -6,4 +6,10 @@ Type 'help' if you need help.
 Outside:
 You are outside in the center of the King's College campus.
 Exits: north east south west 
+> help
+You are lost. You are alone. You wander
+around at the university.
+
+Your command words are:
+   go quit help
 > 

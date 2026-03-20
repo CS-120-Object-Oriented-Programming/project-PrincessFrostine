@@ -69,14 +69,14 @@ public class Game {
 			Writer.println("I don't know what you mean...");
 		} else {
 
-			String commandWord = command.getCommandWord();
-			if (commandWord.equals("help")) {
+			CommandEnum commandWord = command.getCommandWord();
+			if (commandWord == CommandEnum.HELP) {
 				printHelp();
-			} else if (commandWord.equals("go")) {
+			} else if (commandWord == CommandEnum.GO) {
 				goRoom(command);
-			} else if (commandWord.equals("quit")) {
+			} else if (commandWord == CommandEnum.QUIT) {
 				wantToQuit = quit(command);
-			} else if (commandWord.equals("look")) {
+			} else if (commandWord == CommandEnum.LOOK) {
 		
 			} else {
 				Writer.println(commandWord + " is not implemented yet!");
