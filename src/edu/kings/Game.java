@@ -14,20 +14,25 @@ package edu.kings;
  *
  * Used with permission from Dr. Maria Jump at Northeastern University
  */
-
+// Collei.getRoom  Collei.setRoom
 public class Game {
 	/** The world where the game takes place. */
 	private World world;
 	/** The room the player character is currently in. */
-	private Room currentRoom;
-
+		Player collei;
+	/**
+	 * Prints out the location information
+	 */
+		private void look() {
+			
+		}
 	/**
 	 * Create the game and initialize its internal map.
 	 */
 	public Game() {
 		world = new World();
 		// set the starting room
-		currentRoom = world.getRoom("outside");
+		collei = new Player(world.getRoom("outside"));
 	}
 
 	/**
@@ -59,18 +64,20 @@ public class Game {
 	 */
 	private boolean processCommand(Command command) {
 		boolean wantToQuit = false;
-
+		
 		if (command.isUnknown()) {
 			Writer.println("I don't know what you mean...");
 		} else {
 
-			String commandWord = command.getCommandWord();
-			if (commandWord.equals("help")) {
+			CommandEnum commandWord = command.getCommandWord();
+			if (commandWord == CommandEnum.HELP) {
 				printHelp();
-			} else if (commandWord.equals("go")) {
+			} else if (commandWord == CommandEnum.GO) {
 				goRoom(command);
-			} else if (commandWord.equals("quit")) {
+			} else if (commandWord == CommandEnum.QUIT) {
 				wantToQuit = quit(command);
+			} else if (commandWord == CommandEnum.LOOK) {
+		
 			} else {
 				Writer.println(commandWord + " is not implemented yet!");
 			}
@@ -99,39 +106,24 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = currentRoom.northExit;
+				doorway = collei.getRoom().northExit;
 			}
 			if (direction.equals("east")) {
-				doorway = currentRoom.eastExit;
+				doorway = collei.getRoom().eastExit;
 			}
 			if (direction.equals("south")) {
-				doorway = currentRoom.southExit;
+				doorway = collei.getRoom().southExit;
 			}
 			if (direction.equals("west")) {
-				doorway = currentRoom.westExit;
+				doorway = collei.getRoom().westExit;
 			}
 
 			if (doorway == null) {
 				Writer.println("There is no door!");
 			} else {
 				Room newRoom = doorway.getDestination();
-				currentRoom = newRoom;
-				Writer.println(newRoom.getName() + ":");
-				Writer.println("You are " + newRoom.getDescription());
-				Writer.print("Exits: ");
-				if (newRoom.northExit != null) {
-					Writer.print("north ");
-				}
-				if (newRoom.eastExit != null) {
-					Writer.print("east ");
-				}
-				if (newRoom.southExit != null) {
-					Writer.print("south ");
-				}
-				if (newRoom.westExit != null) {
-					Writer.print("west ");
-				}
-				Writer.println();
+				collei.setRoom(newRoom);
+				printLocationInformation();
 			}
 		}
 	}
@@ -165,22 +157,7 @@ public class Game {
 		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
 		Writer.println("Type 'help' if you need help.");
 		Writer.println();
-		Writer.println(currentRoom.getName() + ":");
-		Writer.println("You are " + currentRoom.getDescription());
-		Writer.print("Exits: ");
-		if (currentRoom.northExit != null) {
-			Writer.print("north ");
-		}
-		if (currentRoom.eastExit != null) {
-			Writer.print("east ");
-		}
-		if (currentRoom.southExit != null) {
-			Writer.print("south ");
-		}
-		if (currentRoom.westExit != null) {
-			Writer.print("west ");
-		}
-		Writer.println("");
+		printLocationInformation();
 	}
 
 	/**
@@ -191,6 +168,32 @@ public class Game {
 	 *            The command to be processed.
 	 * @return true, if this command quits the game, false otherwise.
 	 */
+	
+	/**
+	* Prints out the current location and exits.
+	*/
+	private void printLocationInformation() {
+		Writer.println(collei.getRoom().getName() + ":");
+		Writer.println("You are " + collei.getRoom().getDescription());
+		Writer.print("Exits: ");
+		if (collei.getRoom().northExit != null) {
+			Writer.print("north ");
+		}
+		if (collei.getRoom().eastExit != null) {
+			Writer.print("east ");
+		}
+		if (collei.getRoom().southExit != null) {
+			Writer.print("south ");
+		}
+		if (collei.getRoom().westExit != null) {
+			Writer.print("west ");
+		}
+		Writer.println("");
+	}
+	
+	
+	
+	
 	private boolean quit(Command command) {
 		boolean wantToQuit = true;
 		if (command.hasSecondWord()) {
