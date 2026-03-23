@@ -23,8 +23,13 @@ public class Game {
 	/**
 	 * Prints out the location information
 	 */
-		private void look() {
-			
+		private void goBack() {
+			collei.setCurrentRoom(collei.getPreviousRoom()); 
+		}
+		
+		
+		private void lookAround() {
+			Writer.println(collei.getCurrentRoom().getDescription());
 		}
 	/**
 	 * Create the game and initialize its internal map.
@@ -77,7 +82,9 @@ public class Game {
 			} else if (commandWord == CommandEnum.QUIT) {
 				wantToQuit = quit(command);
 			} else if (commandWord == CommandEnum.LOOK) {
-		
+				lookAround();
+			} else if (commandWord == CommandEnum.BACK){
+				goBack();
 			} else {
 				Writer.println(commandWord + " is not implemented yet!");
 			}
@@ -106,23 +113,24 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = collei.getRoom().northExit;
+				doorway = collei.getCurrentRoom().northExit;
 			}
 			if (direction.equals("east")) {
-				doorway = collei.getRoom().eastExit;
+				doorway = collei.getCurrentRoom().eastExit;
 			}
 			if (direction.equals("south")) {
-				doorway = collei.getRoom().southExit;
+				doorway = collei.getCurrentRoom().southExit;
 			}
 			if (direction.equals("west")) {
-				doorway = collei.getRoom().westExit;
+				doorway = collei.getCurrentRoom().westExit;
 			}
 
 			if (doorway == null) {
 				Writer.println("There is no door!");
 			} else {
 				Room newRoom = doorway.getDestination();
-				collei.setRoom(newRoom);
+				collei.setPreviousRoom(collei.getCurrentRoom());
+				collei.setCurrentRoom(newRoom);
 				printLocationInformation();
 			}
 		}
@@ -145,7 +153,10 @@ public class Game {
 		Writer.println("around at the university.");
 		Writer.println();
 		Writer.println("Your command words are:");
-		Writer.println("   go quit help");
+		for (CommandEnum commandWord: CommandEnum.values()) {
+			Writer.print(commandWord.getCommand() + " ");
+		}
+		Writer.println();
 	}
 
 	/**
@@ -173,19 +184,19 @@ public class Game {
 	* Prints out the current location and exits.
 	*/
 	private void printLocationInformation() {
-		Writer.println(collei.getRoom().getName() + ":");
-		Writer.println("You are " + collei.getRoom().getDescription());
+		Writer.println(collei.getCurrentRoom().getName() + ":");
+		Writer.println("You are " + collei.getCurrentRoom().getDescription());
 		Writer.print("Exits: ");
-		if (collei.getRoom().northExit != null) {
+		if (collei.getCurrentRoom().northExit != null) {
 			Writer.print("north ");
 		}
-		if (collei.getRoom().eastExit != null) {
+		if (collei.getCurrentRoom().eastExit != null) {
 			Writer.print("east ");
 		}
-		if (collei.getRoom().southExit != null) {
+		if (collei.getCurrentRoom().southExit != null) {
 			Writer.print("south ");
 		}
-		if (collei.getRoom().westExit != null) {
+		if (collei.getCurrentRoom().westExit != null) {
 			Writer.print("west ");
 		}
 		Writer.println("");
