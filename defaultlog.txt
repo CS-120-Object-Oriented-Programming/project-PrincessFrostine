@@ -6,10 +6,16 @@ Type 'help' if you need help.
 Outside:
 You are outside in the center of the King's College campus.
 Exits: north east south west 
-> help
-You are lost. You are alone. You wander
-around at the university.
-
-Your command words are:
-look help status back quit hi go 
-> 
+> go east
+Holy Cross:
+You are at one of two main dormitories on campus.
+Exits: west 
+> status
+You have earned 0 points in 1 turns
+> back
+outside in the center of the King's College campus.
+> status
+You have earned 0 points in 2 turns
+> quit
+I hope you weren't too bored here on the Campus of Kings!
+Thank you for playing.  Good bye.

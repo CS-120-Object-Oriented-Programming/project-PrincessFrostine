@@ -15,7 +15,7 @@ package edu.kings;
 public class CommandWords {
 	/** A constant array that holds all valid command words. */
 	private static CommandEnum[] validCommands =
-	{CommandEnum.GO, CommandEnum.QUIT, CommandEnum.HELP, CommandEnum.LOOK, CommandEnum.BACK };
+	{CommandEnum.GO, CommandEnum.QUIT, CommandEnum.HELP, CommandEnum.LOOK, CommandEnum.BACK, CommandEnum.STATUS };
 	
 	/**
 	Converts a String into a CommandEnum object.
@@ -38,6 +38,8 @@ public class CommandWords {
 			return CommandEnum.QUIT;
 		case ("back"):
 			return CommandEnum.BACK;
+		case ("status"):
+			return CommandEnum.STATUS;
 		default:
 			return null;
 		}

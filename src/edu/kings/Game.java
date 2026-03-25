@@ -20,6 +20,13 @@ public class Game {
 	private World world;
 	/** The room the player character is currently in. */
 		Player collei;
+	private int score;
+	private int turns;
+		
+	private void getStatus() {
+		Writer.println("You have earned " + score + " points in " + turns + " turns");
+	
+	}
 		
 		
 	/**
@@ -27,6 +34,7 @@ public class Game {
 	 */
 		private void goBack() {
 			collei.setCurrentRoom(collei.getPreviousRoom()); 
+			turns++;
 			Writer.println(collei.getCurrentRoom().getDescription());
 		}
 		/**
@@ -87,8 +95,10 @@ public class Game {
 				wantToQuit = quit(command);
 			} else if (commandWord == CommandEnum.LOOK) {
 				lookAround();
-			} else if (commandWord == CommandEnum.BACK){
+			} else if (commandWord == CommandEnum.BACK) {
 				goBack();
+			} else if (commandWord == CommandEnum.STATUS) {
+				getStatus();
 			} else {
 				Writer.println(commandWord + " is not implemented yet!");
 			}
@@ -136,6 +146,7 @@ public class Game {
 				collei.setPreviousRoom(collei.getCurrentRoom());
 				collei.setCurrentRoom(newRoom);
 				printLocationInformation();
+				turns++;
 			}
 		}
 	}
