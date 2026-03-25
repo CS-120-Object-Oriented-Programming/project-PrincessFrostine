@@ -127,16 +127,16 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = collei.getCurrentRoom().northExit;
+				doorway = collei.getCurrentRoom().getNorthExit();
 			}
 			if (direction.equals("east")) {
-				doorway = collei.getCurrentRoom().eastExit;
+				doorway = collei.getCurrentRoom().getEastExit();
 			}
 			if (direction.equals("south")) {
-				doorway = collei.getCurrentRoom().southExit;
+				doorway = collei.getCurrentRoom().getSouthExit();
 			}
 			if (direction.equals("west")) {
-				doorway = collei.getCurrentRoom().westExit;
+				doorway = collei.getCurrentRoom().getWestExit();
 			}
 
 			if (doorway == null) {
@@ -203,16 +203,16 @@ public class Game {
 		Writer.println(collei.getCurrentRoom().getName() + ":");
 		Writer.println("You are " + collei.getCurrentRoom().getDescription());
 		Writer.print("Exits: ");
-		if (collei.getCurrentRoom().northExit != null) {
+		if (collei.getCurrentRoom().getNorthExit() != null) {
 			Writer.print("north ");
 		}
-		if (collei.getCurrentRoom().eastExit != null) {
+		if (collei.getCurrentRoom().getEastExit() != null) {
 			Writer.print("east ");
 		}
-		if (collei.getCurrentRoom().southExit != null) {
+		if (collei.getCurrentRoom().getSouthExit() != null) {
 			Writer.print("south ");
 		}
-		if (collei.getCurrentRoom().westExit != null) {
+		if (collei.getCurrentRoom().getWestExit() != null) {
 			Writer.print("west ");
 		}
 		Writer.println("");

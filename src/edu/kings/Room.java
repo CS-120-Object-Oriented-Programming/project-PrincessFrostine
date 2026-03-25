@@ -23,17 +23,66 @@ public class Room {
 	private String description;
 
 	/** This room's north exit, null if none exits. */
-	public Door northExit;
+	private Door northExit;
 	/** This room's south exit, null if none exits. */
-	public Door southExit;
+	private Door southExit;
 	/** This room's east exit, null if none exits. */
-	public Door eastExit;
+	private Door eastExit;
 	/** This room's west exit, null if none exits. */
-	public Door westExit;
+	private Door westExit;
 
+	public Door getNorthExit() {
+		return northExit;
+	}
+	
+	public Door getSouthExit() {
+		return southExit;
+	}
+	
+	public Door getEastExit() {
+		return eastExit;
+	}
+	
+	public Door getWestExit() {
+		return westExit;
+	}
+	
+	public void setNorthExit(Door newNorthExit) {
+		northExit= newNorthExit;
+	}
+	
+	public void setSouthExit(Door newSouthExit) {
+		southExit= newSouthExit;
+	}
+	
+	public void setEastExit(Door newEastExit) {
+		eastExit= newEastExit;
+	}
+	
+	public void setWestExit(Door newWestExit) {
+		westExit= newWestExit;
+	}
+	
+	/**
+	* Returns a string description including all the details of a Room.
+	* For example,
+	* Outside:
+	* You are outside in the center of the King's College campus.
+	* Exits: north east south west
+	*
+	* @return A string representing all the details of a Room.
+	*/
+	public String toString() {
+		
+		
+		return null;
+	}
+	
+	
 	/**
 	 * Static initializer.
 	 */
+
 	static {
 		counter = 0;
 	}
