@@ -13,20 +13,19 @@ public class Player {
 	public Player(Room room) {
 		this.currentRoom = room;	
 	}
-	
+	//Beautiful getter for my current room
 	public Room getCurrentRoom() {
 		return (currentRoom);
-		
 	}
-	
+	//the same but for my previous room
 	public Room getPreviousRoom() {
 		return (previousRoom);
 	}
-	
+	//Beautiful setter for my current room
 	public void setCurrentRoom(Room room) {
 		this.currentRoom = room;
 	}
-	
+	//the same but for my previous room
 	public void setPreviousRoom(Room room) {
 		this.previousRoom = room;
 	}

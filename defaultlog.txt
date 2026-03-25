@@ -11,29 +11,5 @@ You are lost. You are alone. You wander
 around at the university.
 
 Your command words are:
-look help status back quit go 
-> go east
-Holy Cross:
-You are at one of two main dormitories on campus.
-Exits: west 
-> go back
-There is no door!
-> back
-I don't know what you mean...
-> back
-I don't know what you mean...
-> look
-at one of two main dormitories on campus.
-> back
-I don't know what you mean...
-> look
-at one of two main dormitories on campus.
-> go east
-There is no door!
-> go west
-Outside:
-You are outside in the center of the King's College campus.
-Exits: north east south west 
-> go back
-There is no door!
+look help status back quit hi go 
 > 

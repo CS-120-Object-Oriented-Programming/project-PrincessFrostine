@@ -20,14 +20,18 @@ public class Game {
 	private World world;
 	/** The room the player character is currently in. */
 		Player collei;
+		
+		
 	/**
-	 * Prints out the location information
+	 * makes the current room the previous room so you can go back.
 	 */
 		private void goBack() {
 			collei.setCurrentRoom(collei.getPreviousRoom()); 
+			Writer.println(collei.getCurrentRoom().getDescription());
 		}
-		
-		
+		/**
+		 * Prints out the location information.
+		 */
 		private void lookAround() {
 			Writer.println(collei.getCurrentRoom().getDescription());
 		}
