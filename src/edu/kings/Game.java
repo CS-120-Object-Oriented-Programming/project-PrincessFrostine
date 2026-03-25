@@ -200,22 +200,7 @@ public class Game {
 	* Prints out the current location and exits.
 	*/
 	private void printLocationInformation() {
-		Writer.println(collei.getCurrentRoom().getName() + ":");
-		Writer.println("You are " + collei.getCurrentRoom().getDescription());
-		Writer.print("Exits: ");
-		if (collei.getCurrentRoom().getNorthExit() != null) {
-			Writer.print("north ");
-		}
-		if (collei.getCurrentRoom().getEastExit() != null) {
-			Writer.print("east ");
-		}
-		if (collei.getCurrentRoom().getSouthExit() != null) {
-			Writer.print("south ");
-		}
-		if (collei.getCurrentRoom().getWestExit() != null) {
-			Writer.print("west ");
-		}
-		Writer.println("");
+		Writer.println(collei.getCurrentRoom().toString());
 	}
 	
 	

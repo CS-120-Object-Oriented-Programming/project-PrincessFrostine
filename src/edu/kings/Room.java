@@ -73,9 +73,23 @@ public class Room {
 	* @return A string representing all the details of a Room.
 	*/
 	public String toString() {
-		
-		
-		return null;
+		String retVal =
+		 getName() + ":" +
+		getDescription() +
+		"\n Exits: ";
+		if (getNorthExit() != null) {
+			retVal += ("north ");
+		}
+		if (getEastExit() != null) {
+			retVal += ("east ");
+		}
+		if (getSouthExit() != null) {
+			retVal+=("south ");
+		}
+		if (getWestExit() != null) {
+			retVal+=("west ");
+		};
+		return retVal + "\n";
 	}
 	
 	
