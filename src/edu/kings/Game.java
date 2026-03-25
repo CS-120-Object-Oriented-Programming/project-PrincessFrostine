@@ -24,7 +24,7 @@ public class Game {
 	private int turns;
 		
 	private void getStatus() {
-		Writer.println("You have earned " + score + " points in " + turns + " turns");
+		Writer.println("Score: " + score +" Turns: " + turns);
 	
 	}
 		
@@ -156,6 +156,7 @@ public class Game {
 	 */
 	private void printGoodbye() {
 		Writer.println("I hope you weren't too bored here on the Campus of Kings!");
+		Writer.println("You have earned " + score + " points in " + turns + " turns");
 		Writer.println("Thank you for playing.  Good bye.");
 	}
 

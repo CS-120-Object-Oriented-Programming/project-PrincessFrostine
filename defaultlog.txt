@@ -6,16 +6,25 @@ Type 'help' if you need help.
 Outside:
 You are outside in the center of the King's College campus.
 Exits: north east south west 
+> status
+Score: 0 Turns: 0
+> go left
+There is no door!
 > go east
 Holy Cross:
 You are at one of two main dormitories on campus.
 Exits: west 
-> status
-You have earned 0 points in 1 turns
+> go west
+Outside:
+You are outside in the center of the King's College campus.
+Exits: north east south west 
+> go back
+There is no door!
 > back
-outside in the center of the King's College campus.
+at one of two main dormitories on campus.
 > status
-You have earned 0 points in 2 turns
+Score: 0 Turns: 3
 > quit
 I hope you weren't too bored here on the Campus of Kings!
+You have earned 0 points in 3 turns
 Thank you for playing.  Good bye.
