@@ -14,6 +14,8 @@ package edu.kings;
  *
  * Used with permission from Dr. Maria Jump at Northeastern University
  */
+import java.util.HashMap;
+
 public class Room {
 	/** Counter for the total number of rooms created in the world. */
 	private static int counter;
@@ -21,46 +23,26 @@ public class Room {
 	private String name;
 	/** The description of this room. */
 	private String description;
+	
+	HashMap<String, Door> allDoors = new HashMap<>(); 
+	
+	/**
+	* Gets a door in a specified direction if it exists.
+	*
+	* @return The door in the specified direction or null if it does not exist.
+	*/
+	public Door getExit(String direction) {
+		return allDoors.get(direction);
+	}
 
-	/** This room's north exit, null if none exits. */
-	private Door northExit;
-	/** This room's south exit, null if none exits. */
-	private Door southExit;
-	/** This room's east exit, null if none exits. */
-	private Door eastExit;
-	/** This room's west exit, null if none exits. */
-	private Door westExit;
-
-	public Door getNorthExit() {
-		return northExit;
-	}
-	
-	public Door getSouthExit() {
-		return southExit;
-	}
-	
-	public Door getEastExit() {
-		return eastExit;
-	}
-	
-	public Door getWestExit() {
-		return westExit;
-	}
-	
-	public void setNorthExit(Door newNorthExit) {
-		northExit= newNorthExit;
-	}
-	
-	public void setSouthExit(Door newSouthExit) {
-		southExit= newSouthExit;
-	}
-	
-	public void setEastExit(Door newEastExit) {
-		eastExit= newEastExit;
-	}
-	
-	public void setWestExit(Door newWestExit) {
-		westExit= newWestExit;
+	/**
+	* Defines an exit from this room.
+	*
+	* @param direction The direction of the exit.
+	* @param neighbor The door in the given direction.
+	*/
+	public void setExit(String direction, Door neighbor) {
+		allDoors.put(direction, neighbor);
 	}
 	
 	/**
@@ -74,21 +56,12 @@ public class Room {
 	*/
 	public String toString() {
 		String retVal =
-		 getName() + ":" +
+		 getName() + ": " +
 		getDescription() +
 		"\n Exits: ";
-		if (getNorthExit() != null) {
-			retVal += ("north ");
+		for (String nextDoor: allDoors.keySet()) {
+			retVal += nextDoor + " ";
 		}
-		if (getEastExit() != null) {
-			retVal += ("east ");
-		}
-		if (getSouthExit() != null) {
-			retVal+=("south ");
-		}
-		if (getWestExit() != null) {
-			retVal+=("west ");
-		};
 		return retVal + "\n";
 	}
 	

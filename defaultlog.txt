@@ -3,22 +3,7 @@ Welcome to the Campus of Kings!
 Campus of Kings is a new, incredibly boring adventure game.
 Type 'help' if you need help.
 
-Outside:outside in the center of the King's College campus.
- Exits: north east south west 
+Outside: outside in the center of the King's College campus.
+ Exits: east south north west 
 
-> go east
-Holy Cross:at one of two main dormitories on campus.
- Exits: west 
-
-> go north
-There is no door!
-> go west
-Outside:outside in the center of the King's College campus.
- Exits: north east south west 
-
-> back
-at one of two main dormitories on campus.
-> quit
-I hope you weren't too bored here on the Campus of Kings!
-You have earned 0 points in 3 turns
-Thank you for playing.  Good bye.
+> 

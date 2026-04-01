@@ -127,16 +127,16 @@ public class Game {
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = collei.getCurrentRoom().getNorthExit();
+				doorway = collei.getCurrentRoom().getExit(direction);
 			}
 			if (direction.equals("east")) {
-				doorway = collei.getCurrentRoom().getEastExit();
+				doorway = collei.getCurrentRoom().getExit(direction);
 			}
 			if (direction.equals("south")) {
-				doorway = collei.getCurrentRoom().getSouthExit();
+				doorway = collei.getCurrentRoom().getExit(direction);
 			}
 			if (direction.equals("west")) {
-				doorway = collei.getCurrentRoom().getWestExit();
+				doorway = collei.getCurrentRoom().getExit(direction);
 			}
 
 			if (doorway == null) {
