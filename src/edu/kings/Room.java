@@ -15,6 +15,7 @@ package edu.kings;
  * Used with permission from Dr. Maria Jump at Northeastern University
  */
 import java.util.HashMap;
+import java.util.ArrayList;
 
 public class Room {
 	/** Counter for the total number of rooms created in the world. */
@@ -23,9 +24,32 @@ public class Room {
 	private String name;
 	/** The description of this room. */
 	private String description;
+	/** Array list that holds all the items in a room. */
+	ArrayList<Item> itemsInRoom = new ArrayList<>();
 	
+	/** The hashmap to make the Rooms that exist and the keys for it. */
 	HashMap<String, Door> allDoors = new HashMap<>(); 
 	
+	/** Its supposed to add an item to the room. */
+	public void addItem(Item newItem) {
+		itemsInRoom.add(newItem);
+	}
+	
+	/** Supposed to get the items in a room. */
+	public ArrayList<Item> getItems() {
+		return itemsInRoom;
+	}
+	
+	public Item removeItem(String oldItem)  {
+		for (int i = 0; i < itemsInRoom.size(); i++) {
+			if ( itemsInRoom.get(i).getItem() == oldItem) {
+				itemsInRoom.remove(i);
+				return itemsInRoom.get(i);
+			} else {
+				return null;
+			}
+		} return null;
+	}
 	/**
 	* Gets a door in a specified direction if it exists.
 	*
@@ -61,6 +85,10 @@ public class Room {
 		"\n Exits: ";
 		for (String nextDoor: allDoors.keySet()) {
 			retVal += nextDoor + " ";
+		}
+		retVal += "\n Items: ";
+		for (int i = 0; i < itemsInRoom.size(); i++ ) {
+			retVal += itemsInRoom.get(i).getItem() + " ";
 		}
 		return retVal + "\n";
 	}

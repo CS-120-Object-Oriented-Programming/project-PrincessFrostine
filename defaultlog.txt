@@ -5,5 +5,23 @@ Type 'help' if you need help.
 
 Outside: outside in the center of the King's College campus.
  Exits: east south north west 
+ Items: key 
+
+> go west
+Campus Center: in the center of student activities on campus.
+ Exits: east 
+ Items: 
+
+> go east
+Outside: outside in the center of the King's College campus.
+ Exits: east south north west 
+ Items: key 
+
+> go eas
+There is no door!
+> go east
+Holy Cross: at one of two main dormitories on campus.
+ Exits: west 
+ Items: rusty nail 
 
 > 

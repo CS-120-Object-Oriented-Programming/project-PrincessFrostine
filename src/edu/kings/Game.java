@@ -35,13 +35,13 @@ public class Game {
 		private void goBack() {
 			collei.setCurrentRoom(collei.getPreviousRoom()); 
 			turns++;
-			Writer.println(collei.getCurrentRoom().getDescription());
+			Writer.println(collei.getCurrentRoom().toString());
 		}
 		/**
 		 * Prints out the location information.
 		 */
 		private void lookAround() {
-			Writer.println(collei.getCurrentRoom().getDescription());
+			Writer.println(collei.getCurrentRoom().toString());
 		}
 	/**
 	 * Create the game and initialize its internal map.

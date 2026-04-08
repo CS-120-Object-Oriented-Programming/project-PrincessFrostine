@@ -1,5 +1,6 @@
 package edu.kings;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * This class represents the entire world that makes up the "Campus of Kings"
@@ -51,7 +52,10 @@ public class World {
 	private void addRoom(Room theRoom) {
 		rooms.put(theRoom.getName().toLowerCase(), theRoom);
 	}
-
+	
+	private Item createItem(Item newItem)  {
+		return newItem;
+	}
 	/**
 	* Helper method for creating doors between rooms.
 	*
@@ -116,6 +120,13 @@ public class World {
 		
 		createDoor(admin, "west" , slivaOffice);
 		createDoor(slivaOffice, "east", admin);
+		
+		
+		// Adding all the items into their rooms
+		
+		outside.addItem(createItem(new Item("key", 0, 0, "The key to no where")));
+		essef.addItem(createItem(new Item("tire", 0, 0, "a sad tire")));
+		holyCross.addItem(createItem(new Item("rusty nail", 0, 0, "ouch")));
 	
 	}
 }
