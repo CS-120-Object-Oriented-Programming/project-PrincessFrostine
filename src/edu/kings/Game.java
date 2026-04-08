@@ -1,4 +1,5 @@
 package edu.kings;
+import java.util.ArrayList;
 /**
  * This class is the main class of the "Campus of Kings" application.
  * "Campus of Kings" is a very simple, text based adventure game. Users can walk
@@ -22,20 +23,54 @@ public class Game {
 		Player collei;
 	private int score;
 	private int turns;
-		
+	private ArrayList<Item> items;
 	private void getStatus() {
 		Writer.println("Score: " + score +" Turns: " + turns);
-	
+		printLocationInformation();
 	}
-		
-		
+	
+	private void myInventory(){
+		 Writer.println(collei.getInventory());
+	}
+	
+	/** How to examine items*/	
+	private void examineItem(Command command) {
+		if (!command.hasSecondWord()) {
+			Writer.println("What item? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem() == theItem) {
+					Writer.println(theItem.toString());
+					/**
+				} else if (0 == 0){
+					for (int index = 0; index < collei.getInventory().size(); index ++) {
+						if (collei.getInventory().get(index).getItem() == theItem) {
+							Writer.println(theItem.toString());
+						} else {
+							Writer.println("There is no such item. ");
+						}	
+					}
+				}*/
+			}
+			Writer.println("There is no such item. ");
+		}}
+		}
+	
+	
+	
+	
 	/**
 	 * makes the current room the previous room so you can go back.
 	 */
 		private void goBack() {
-			collei.setCurrentRoom(collei.getPreviousRoom()); 
-			turns++;
-			Writer.println(collei.getCurrentRoom().toString());
+			if (collei.getPreviousRoom() == null) {
+				Writer.println("You cannot go back. ");
+			} else {
+				collei.setCurrentRoom(collei.getPreviousRoom()); 
+				turns++;
+				Writer.println(collei.getCurrentRoom().toString());
+			}
 		}
 		/**
 		 * Prints out the location information.
@@ -49,7 +84,7 @@ public class Game {
 	public Game() {
 		world = new World();
 		// set the starting room
-		collei = new Player(world.getRoom("outside"));
+		collei = new Player(world.getRoom("outside"), items);
 	}
 
 	/**
@@ -99,7 +134,13 @@ public class Game {
 				goBack();
 			} else if (commandWord == CommandEnum.STATUS) {
 				getStatus();
-			} else {
+			} else if (commandWord == CommandEnum.EXAMINE){
+				examineItem(command);
+			} else if (commandWord == CommandEnum.INVENTORY) {
+				myInventory();
+			}
+			
+			else {
 				Writer.println(commandWord + " is not implemented yet!");
 			}
 		}

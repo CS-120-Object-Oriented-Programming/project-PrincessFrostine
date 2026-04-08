@@ -1,7 +1,5 @@
 package edu.kings;
 import java.util.HashMap;
-import java.util.ArrayList;
-
 /**
  * This class represents the entire world that makes up the "Campus of Kings"
  * application. "Campus of Kings" is a very simple, text based adventure game.

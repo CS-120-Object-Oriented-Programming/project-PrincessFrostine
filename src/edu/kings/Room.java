@@ -45,8 +45,6 @@ public class Room {
 			if ( itemsInRoom.get(i).getItem() == oldItem) {
 				itemsInRoom.remove(i);
 				return itemsInRoom.get(i);
-			} else {
-				return null;
 			}
 		} return null;
 	}
