@@ -24,40 +24,90 @@ public class Game {
 	private int score;
 	private int turns;
 	private ArrayList<Item> items;
+	/**
+	 * Create the game and initialize its internal map.
+	 */
+	public Game() {
+		world = new World();
+		// set the starting room
+		collei = new Player(world.getRoom("outside"), new ArrayList<>());
+	}
+	
+	
+	/** Prints the current score of the game. */
 	private void getStatus() {
-		Writer.println("Score: " + score +" Turns: " + turns);
+		Writer.println("Score: " + score + " Turns: " + turns + " ");
 		printLocationInformation();
 	}
 	
+	
+	/** Prints out what is in the inventory. */
 	private void myInventory(){
 		 Writer.println(collei.getInventory());
 	}
 	
-	/** How to examine items*/	
+	
+	/** How to examine items. */	
 	private void examineItem(Command command) {
+		Boolean val = false;
 		if (!command.hasSecondWord()) {
-			Writer.println("What item? ");
+			Writer.println("Examine what? ");
 		} else {
 			String theItem = command.getRestOfLine();
 			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
-				if (collei.getCurrentRoom().getItems().get(i).getItem() == theItem) {
-					Writer.println(theItem.toString());
-					/**
-				} else if (0 == 0){
-					for (int index = 0; index < collei.getInventory().size(); index ++) {
-						if (collei.getInventory().get(index).getItem() == theItem) {
-							Writer.println(theItem.toString());
-						} else {
-							Writer.println("There is no such item. ");
-						}	
-					}
-				}*/
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+					Writer.println(collei.getCurrentRoom().getItems().get(i).toString());
+					val = true;
+				}
 			}
-			Writer.println("There is no such item. ");
-		}}
+			for (int index = 0; index < collei.getInventory().size(); index ++) {
+					if (collei.getInventory().get(index).getItem().equals(theItem)) {
+						Writer.println(collei.getInventory().get(index).getDescription());
+						val = true;
+				}
+			} if (val == false) {
+				Writer.println("There is no such item. ");
+			}
 		}
+	}
+	/** Taking an item from the world and adding it to the players inventory. */
+	private void takeItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Take what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+					collei.setInventory(collei.getCurrentRoom().getItems().get(i));
+					collei.getCurrentRoom().getItems().remove(i);
+					val = true;
+				} 
+			} if (val == false) {
+				Writer.println("There is no such item. ");
+			}
+		}
+	}
 	
-	
+	/** Dropping an item and adding it to the room. */
+	private void dropItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Drop what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i = 0; i < collei.getInventory().size(); i++ ) {
+				if (collei.getInventory().get(i).getItem().equals(theItem)) {
+					collei.getCurrentRoom().getItems().add(collei.getInventory().get(i));
+					Writer.println("you dropped " + collei.getInventory().get(i) );
+					collei.getInventory().remove(i);
+					val = true;
+				} 
+			} if (val == false) {
+				Writer.println("You do not have this item. ");
+			}
+		}
+	}
 	
 	
 	/**
@@ -78,14 +128,7 @@ public class Game {
 		private void lookAround() {
 			Writer.println(collei.getCurrentRoom().toString());
 		}
-	/**
-	 * Create the game and initialize its internal map.
-	 */
-	public Game() {
-		world = new World();
-		// set the starting room
-		collei = new Player(world.getRoom("outside"), items);
-	}
+	
 
 	/**
 	 * Main play routine. Loops until end of play.
@@ -138,6 +181,10 @@ public class Game {
 				examineItem(command);
 			} else if (commandWord == CommandEnum.INVENTORY) {
 				myInventory();
+			} else if (commandWord == CommandEnum.TAKE) {
+				takeItem(command);
+			} else if(commandWord == CommandEnum.DROP) {
+				dropItem(command);
 			}
 			
 			else {

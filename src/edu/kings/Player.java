@@ -51,9 +51,11 @@ public class Player {
 	public String setInventory(Item newItem) {
 		if (newItem.getWeight() == 0) {
 			inventory.add(newItem);
-			return "Succsessfuly picked up " + newItem.getItem() + ". ";
+			Writer.println("Succsessfuly picked up " + newItem.getItem() + ". ");
+			return newItem.getItem();
 		} else {
-			return "Item is too heavy";
+			Writer.println("Item is too heavy. ");
+			return "Item is too heavy. ";
 		}
 			
 	}

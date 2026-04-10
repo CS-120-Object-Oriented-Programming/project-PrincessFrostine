@@ -33,6 +33,7 @@ public class Item {
 		itemDescription = newDescription;
 	}
 	
+	
 	public String toString() {
 		String retVal = 
 		getItem() + ": " + getDescription() ;

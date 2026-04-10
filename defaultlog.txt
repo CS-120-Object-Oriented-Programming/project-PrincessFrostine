@@ -7,6 +7,22 @@ Outside: outside in the center of the King's College campus.
  Exits: east south north west 
  Items: key 
 
+> take key
+Succsessfuly picked up key. 
+> look
+Outside: outside in the center of the King's College campus.
+ Exits: east south north west 
+ Items: 
+
 > inventory
-null
+[key: The key to no where]
+> drop key
+you dropped key: The key to no where
+> look
+Outside: outside in the center of the King's College campus.
+ Exits: east south north west 
+ Items: key 
+
+> inventory
+[]
 > 
