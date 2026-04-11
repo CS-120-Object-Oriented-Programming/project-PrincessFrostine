@@ -33,103 +33,6 @@ public class Game {
 		collei = new Player(world.getRoom("outside"), new ArrayList<>());
 	}
 	
-	
-	/** Prints the current score of the game. */
-	private void getStatus() {
-		Writer.println("Score: " + score + " Turns: " + turns + " ");
-		printLocationInformation();
-	}
-	
-	
-	/** Prints out what is in the inventory. */
-	private void myInventory(){
-		 Writer.println(collei.getInventory());
-	}
-	
-	
-	/** How to examine items. */	
-	private void examineItem(Command command) {
-		Boolean val = false;
-		if (!command.hasSecondWord()) {
-			Writer.println("Examine what? ");
-		} else {
-			String theItem = command.getRestOfLine();
-			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
-				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
-					Writer.println(collei.getCurrentRoom().getItems().get(i).toString());
-					val = true;
-				}
-			}
-			for (int index = 0; index < collei.getInventory().size(); index ++) {
-					if (collei.getInventory().get(index).getItem().equals(theItem)) {
-						Writer.println(collei.getInventory().get(index).getDescription());
-						val = true;
-				}
-			} if (val == false) {
-				Writer.println("There is no such item. ");
-			}
-		}
-	}
-	/** Taking an item from the world and adding it to the players inventory. */
-	private void takeItem(Command command) {
-		Boolean val = false;
-		if (!command.hasSecondWord()) {
-			Writer.println("Take what? ");
-		} else {
-			String theItem = command.getRestOfLine();
-			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
-				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
-					collei.setInventory(collei.getCurrentRoom().getItems().get(i));
-					collei.getCurrentRoom().getItems().remove(i);
-					val = true;
-				} 
-			} if (val == false) {
-				Writer.println("There is no such item. ");
-			}
-		}
-	}
-	
-	/** Dropping an item and adding it to the room. */
-	private void dropItem(Command command) {
-		Boolean val = false;
-		if (!command.hasSecondWord()) {
-			Writer.println("Drop what? ");
-		} else {
-			String theItem = command.getRestOfLine();
-			for (int i = 0; i < collei.getInventory().size(); i++ ) {
-				if (collei.getInventory().get(i).getItem().equals(theItem)) {
-					collei.getCurrentRoom().getItems().add(collei.getInventory().get(i));
-					Writer.println("you dropped " + collei.getInventory().get(i) );
-					collei.getInventory().remove(i);
-					val = true;
-				} 
-			} if (val == false) {
-				Writer.println("You do not have this item. ");
-			}
-		}
-	}
-	
-	
-	/**
-	 * makes the current room the previous room so you can go back.
-	 */
-		private void goBack() {
-			if (collei.getPreviousRoom() == null) {
-				Writer.println("You cannot go back. ");
-			} else {
-				collei.setCurrentRoom(collei.getPreviousRoom()); 
-				turns++;
-				Writer.println(collei.getCurrentRoom().toString());
-			}
-		}
-		/**
-		 * Prints out the location information.
-		 */
-		private void lookAround() {
-			Writer.println(collei.getCurrentRoom().toString());
-		}
-	
-
 	/**
 	 * Main play routine. Loops until end of play.
 	 */
@@ -185,6 +88,10 @@ public class Game {
 				takeItem(command);
 			} else if(commandWord == CommandEnum.DROP) {
 				dropItem(command);
+			} else if (commandWord == CommandEnum.LOCK) {
+				lockDoor(command);
+			} else if (commandWord == CommandEnum.UNLOCK) {
+				unlockDoor(command);
 			}
 			
 			else {
@@ -198,6 +105,79 @@ public class Game {
 	// Helper methods for implementing all of the commands.
 	// It helps if you organize these in alphabetical order.
 
+	
+	
+	/** Dropping an item and adding it to the room. */
+	private void dropItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Drop what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i = 0; i < collei.getInventory().size(); i++ ) {
+				if (collei.getInventory().get(i).getItem().equals(theItem)) {
+					collei.getCurrentRoom().getItems().add(collei.getInventory().get(i));
+					Writer.println("you dropped " + collei.getInventory().get(i) );
+					collei.getInventory().remove(i);
+					val = true;
+				} 
+			} if (val == false) {
+				Writer.println("You do not have this item. ");
+			}
+		}
+	}
+
+	
+	
+	/** How to examine items. */	
+	private void examineItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Examine what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+					Writer.println(collei.getCurrentRoom().getItems().get(i).toString());
+					val = true;
+				}
+			}
+			for (int index = 0; index < collei.getInventory().size(); index ++) {
+					if (collei.getInventory().get(index).getItem().equals(theItem)) {
+						Writer.println(collei.getInventory().get(index).getDescription());
+						val = true;
+				}
+			} if (val == false) {
+				Writer.println("There is no such item. ");
+			}
+		}
+	}
+	
+	
+
+	/** Prints the current score of the game. */
+	private void getStatus() {
+		Writer.println("Score: " + score + " Turns: " + turns + " ");
+		printLocationInformation();
+	}
+	
+	
+	
+	/**
+	 * makes the current room the previous room so you can go back.
+	 */
+		private void goBack() {
+			if (collei.getPreviousRoom() == null) {
+				Writer.println("You cannot go back. ");
+			} else {
+				collei.setCurrentRoom(collei.getPreviousRoom()); 
+				turns++;
+				Writer.println(collei.getCurrentRoom().toString());
+			}
+		}
+	
+		
+		
 	/**
 	 * Try to go to one direction. If there is an exit, enter the new room,
 	 * otherwise print an error message.
@@ -211,24 +191,57 @@ public class Game {
 			Writer.println("Go where?");
 		} else {
 			String direction = command.getRestOfLine();
-
+			boolean val = false;
 			// Try to leave current.
 			Door doorway = null;
 			if (direction.equals("north")) {
-				doorway = collei.getCurrentRoom().getExit(direction);
+				if (collei.getCurrentRoom().getExit(direction) == null) {
+				
+				} else if (collei.getCurrentRoom().getExit(direction).isLocked() == false) {
+					doorway = collei.getCurrentRoom().getExit(direction);
+					val = true;
+				} else if (collei.getCurrentRoom().getExit(direction).isLocked() == true) {
+					Writer.println("The door is locked. ");
+					val = true;
+				}
 			}
 			if (direction.equals("east")) {
-				doorway = collei.getCurrentRoom().getExit(direction);
+				if (collei.getCurrentRoom().getExit(direction) == null) {
+					
+				} else if (collei.getCurrentRoom().getExit(direction).isLocked() == false) {
+					doorway = collei.getCurrentRoom().getExit(direction);
+					val = true;
+				} else {
+					Writer.println("The door is locked. ");
+					val = true;
+				}
 			}
 			if (direction.equals("south")) {
-				doorway = collei.getCurrentRoom().getExit(direction);
-			}
+				if (collei.getCurrentRoom().getExit(direction) == null) {
+					
+				} else if (collei.getCurrentRoom().getExit(direction).isLocked() == false) {
+					doorway = collei.getCurrentRoom().getExit(direction);
+					val = true;
+				} else {
+					Writer.println("The door is locked. ");
+					val = true;
+				}
+				}
 			if (direction.equals("west")) {
-				doorway = collei.getCurrentRoom().getExit(direction);
+				if (collei.getCurrentRoom().getExit(direction) == null) {
+				
+				} else if (collei.getCurrentRoom().getExit(direction).isLocked() == false) {
+					doorway = collei.getCurrentRoom().getExit(direction);
+					val = true;
+				} else {
+					Writer.println("The door is locked. ");
+					val = true;
+				}
 			}
-
 			if (doorway == null) {
-				Writer.println("There is no door!");
+				if (val == false) {
+					Writer.println("There is no door. ");
+				}
 			} else {
 				Room newRoom = doorway.getDestination();
 				collei.setPreviousRoom(collei.getCurrentRoom());
@@ -236,9 +249,63 @@ public class Game {
 				printLocationInformation();
 				turns++;
 			}
+			
 		}
 	}
+	
+	
+	
+	private void lockDoor(Command command) {
+		if (!command.hasSecondWord()) {
+			// if there is no second word, we don't know where to go...
+			Writer.println("Lock What?");
+		} else {
+			String lockDirection = command.getRestOfLine();
+			Boolean val = false;
+			if (collei.getCurrentRoom().getExit(lockDirection) == null) {
+				Writer.println("There is no door");
+			} else if (collei.getCurrentRoom().getExit(lockDirection).isLocked() == true) {
+				Writer.println("The door is already locked. ");
+			} else if (collei.getCurrentRoom().getExit(lockDirection).isLocked() == false && collei.getCurrentRoom().getExit(lockDirection).getKey() == null) {
+				Writer.println("This door can not be locked. ");
+			} else if (collei.getCurrentRoom().getExit(lockDirection).isLocked() == false && collei.getCurrentRoom().getExit(lockDirection).getKey() != null) {
+				Writer.println("Which key? ");
+				String theAnswer = Reader.getResponse();
+				for (int i = 0; i < collei.getInventory().size(); i++) {
+					if(collei.getInventory().get(i).getItem().equals(theAnswer) && collei.getCurrentRoom().getExit(lockDirection).getKey().equals(theAnswer)) {
+						collei.getCurrentRoom().getExit(lockDirection).setLocked(true);
+						Writer.println("The door has been locked. ");
+						val = true;
+					} else if(collei.getInventory().get(i).getItem().equals(theAnswer) && collei.getCurrentRoom().getExit(lockDirection).getKey() != theAnswer) {
+						Writer.println("That is the wrong key. ");
+						val = true;
+					} 
+				}
+				if (val == false) {
+					Writer.println("You do not have that key. ");
+				}
+			}
+		}
+	}
+	
+	
+	
+	/**
+	 * Prints out the location information.
+	 */
+	private void lookAround() {
+		Writer.println(collei.getCurrentRoom().toString());
+	}
 
+
+	
+	/** Prints out what is in the inventory. */
+	private void myInventory(){
+		 Writer.println(collei.getInventory());
+	}
+
+	
+	
 	/**
 	 * Print out the closing message for the player.
 	 */
@@ -248,6 +315,8 @@ public class Game {
 		Writer.println("Thank you for playing.  Good bye.");
 	}
 
+	
+	
 	/**
 	 * Print out some help information. Here we print some stupid, cryptic
 	 * message and a list of the command words.
@@ -263,6 +332,29 @@ public class Game {
 		Writer.println();
 	}
 
+	
+	
+	/** Taking an item from the world and adding it to the players inventory. */
+	private void takeItem(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Take what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+					collei.setInventory(collei.getCurrentRoom().getItems().get(i));
+					collei.getCurrentRoom().getItems().remove(i);
+					val = true;
+				} 
+			} if (val == false) {
+				Writer.println("There is no such item. ");
+			}
+		}
+	}
+	
+	
+	
 	/**
 	 * Print out the opening message for the player.
 	 */
@@ -275,6 +367,8 @@ public class Game {
 		printLocationInformation();
 	}
 
+	
+	
 	/**
 	 * "Quit" was entered. Check the rest of the command to see whether we
 	 * really quit the game.
@@ -293,7 +387,6 @@ public class Game {
 	
 	
 	
-	
 	private boolean quit(Command command) {
 		boolean wantToQuit = true;
 		if (command.hasSecondWord()) {
@@ -302,4 +395,41 @@ public class Game {
 		}
 		return wantToQuit;
 	}
+
+
+
+	private void unlockDoor(Command command) {
+		if (!command.hasSecondWord()) {
+			// if there is no second word, we don't know where to go...
+			Writer.println("Unlock What?");
+		} else {
+		String lockDirection = command.getRestOfLine();
+		Boolean val = false;
+		if (collei.getCurrentRoom().getExit(lockDirection) == null) {
+			Writer.println("There is no door");
+		} else if (collei.getCurrentRoom().getExit(lockDirection).isLocked() == false) {
+			Writer.println("The door is not locked. ");
+		} else if (collei.getCurrentRoom().getExit(lockDirection).isLocked() == true) {
+			Writer.println("Which key? ");
+			String theAnswer = Reader.getResponse();
+			for (int i = 0; i < collei.getInventory().size(); i++) {
+				if(collei.getInventory().get(i).getItem().equals(theAnswer) && collei.getCurrentRoom().getExit(lockDirection).getKey().equals(theAnswer)) {
+					collei.getCurrentRoom().getExit(lockDirection).setLocked(false);
+					Writer.println("The door has been unlocked. ");
+					val = true;
+				} else if(collei.getInventory().get(i).getItem().equals(theAnswer) && collei.getCurrentRoom().getExit(lockDirection).getKey() != theAnswer) {
+					Writer.println("The key does not fit. ");
+					val = true;
+				} 
+			}
+			if (val == false) {
+				Writer.println("You do not have that key. ");
+			}
+			}
+		}
+	}
+
 }
+
+
+

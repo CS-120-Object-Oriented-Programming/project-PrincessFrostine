@@ -10,6 +10,8 @@ public enum CommandEnum {
 	DROP ("drop"),
 	INVENTORY ("inventory"),
 	TAKE ("take"),
+	LOCK ("lock"),
+	UNLOCK ("unlock"),
 	GO ("go");
 	
 	

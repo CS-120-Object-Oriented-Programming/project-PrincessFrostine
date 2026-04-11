@@ -61,8 +61,11 @@ public class World {
 	* @param direction The direction of the door in the from room.
 	* @param to The room where the door goes.
 	*/
-	private void createDoor(Room from, String direction, Room to) {
-		Door aDoor = new Door(to);
+	private void createDoor(Room from, String direction, String theKey, Room to) {
+		Door aDoor = new Door(to, theKey);
+		if (theKey != null) {
+			aDoor.setLocked(false);
+		}
 		rooms.get(from.getName().toLowerCase()).allDoors.put(direction, aDoor);
 	}
 
@@ -95,34 +98,34 @@ public class World {
 
 		// Creating all the doors between the rooms.
 		
-		createDoor(essef, "south" , outside);
-		createDoor(outside, "north", essef);
+		createDoor(essef, "south" , null, outside);
+		createDoor(outside, "north", "essef key", essef);
 		
-		createDoor(outside, "south" , admin);
-		createDoor(admin, "north", outside);
+		createDoor(outside, "south", null, admin);
+		createDoor(admin, "north", null, outside);
 		
-		createDoor(admin, "south" , janoskiOffice);
-		createDoor(janoskiOffice, "north", admin);
+		createDoor(admin, "south", null, janoskiOffice);
+		createDoor(janoskiOffice, "north", null, admin);
 		
-		createDoor(lab, "south" , classroom);
-		createDoor(classroom, "north", lab);
+		createDoor(lab, "south", null, classroom);
+		createDoor(classroom, "north", null, lab);
 		
-		createDoor(campusCenter, "east" , outside);
-		createDoor(outside, "west", campusCenter);
+		createDoor(campusCenter, "east", null, outside);
+		createDoor(outside, "west", null, campusCenter);
 		
-		createDoor(outside, "east" , holyCross);
-		createDoor(holyCross, "west", outside);
+		createDoor(outside, "east", null, holyCross);
+		createDoor(holyCross, "west", null, outside);
 		
-		createDoor(admin, "east" , lab);
-		createDoor(lab, "west", admin);
+		createDoor(admin, "east", null, lab);
+		createDoor(lab, "west", null, admin);
 		
-		createDoor(admin, "west" , slivaOffice);
-		createDoor(slivaOffice, "east", admin);
+		createDoor(admin, "west", null, slivaOffice);
+		createDoor(slivaOffice, "east", null, admin);
 		
 		
 		// Adding all the items into their rooms
 		
-		outside.addItem(createItem(new Item("key", 0, 0, "The key to no where")));
+		outside.addItem(createItem(new Item("essef key", 0, 0, "The key to essef")));
 		essef.addItem(createItem(new Item("tire", 0, 1, "a sad tire")));
 		holyCross.addItem(createItem(new Item("rusty nail", 0, 0, "ouch")));
 	
