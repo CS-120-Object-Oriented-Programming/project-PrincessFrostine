@@ -1,0 +1,39 @@
+
+Welcome to the Campus of Kings!
+Campus of Kings is a new, incredibly boring adventure game.
+Type 'help' if you need help.
+
+Outside: outside in the center of the King's College campus.
+ Exits: east south north west 
+ Items: essef key 
+
+> take essef key
+Succsessfuly picked up essef key. 
+> lock north
+Which key? 
+essef key
+The door has been locked. 
+> go north
+The door is locked. 
+> go east
+Holy Cross: at one of two main dormitories on campus.
+ Exits: west 
+ Items: rusty nail 
+
+> go west
+Outside: outside in the center of the King's College campus.
+ Exits: east south north west 
+ Items: 
+
+> go north
+The door is locked. 
+> go west
+Campus Center: in the center of student activities on campus.
+ Exits: east 
+ Items: 
+
+> go west
+There is no door that you can go through. 
+> lock west
+There is no door
+> 

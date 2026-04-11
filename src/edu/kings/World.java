@@ -1,6 +1,5 @@
 package edu.kings;
 import java.util.HashMap;
-
 /**
  * This class represents the entire world that makes up the "Campus of Kings"
  * application. "Campus of Kings" is a very simple, text based adventure game.
@@ -51,57 +50,23 @@ public class World {
 	private void addRoom(Room theRoom) {
 		rooms.put(theRoom.getName().toLowerCase(), theRoom);
 	}
-
-	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param north
-	 *            The room to the north of the originating room.
-	 */
-	private void createNorthDoor(Room from, Room north) {
-		Door northDoor = new Door(north);
-		from.northExit = northDoor;
+	
+	private Item createItem(Item newItem)  {
+		return newItem;
 	}
-
 	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param east
-	 *            The room to the east of the originating room.
-	 */
-	private void createEastDoor(Room from, Room east) {
-		Door eastDoor = new Door(east);
-		from.eastExit = eastDoor;
-	}
-
-	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param south
-	 *            The room to the south of the originating room.
-	 */
-	private void createSouthDoor(Room from, Room south) {
-		Door southDoor = new Door(south);
-		from.southExit = southDoor;
-	}
-
-	/**
-	 * Helper method for creating doors between rooms.
-	 *
-	 * @param from
-	 *            The room where the door originates.
-	 * @param west
-	 *            The room to the west of the originating room.
-	 */
-	private void createWestDoor(Room from, Room west) {
-		Door westDoor = new Door(west);
-		from.westExit = westDoor;
+	* Helper method for creating doors between rooms.
+	*
+	* @param from The room where the door originates.
+	* @param direction The direction of the door in the from room.
+	* @param to The room where the door goes.
+	*/
+	private void createDoor(Room from, String direction, String theKey, Room to) {
+		Door aDoor = new Door(to, theKey);
+		if (theKey != null) {
+			aDoor.setLocked(false);
+		}
+		rooms.get(from.getName().toLowerCase()).allDoors.put(direction, aDoor);
 	}
 
 	/**
@@ -132,28 +97,37 @@ public class World {
 		this.addRoom(classroom);
 
 		// Creating all the doors between the rooms.
-		this.createSouthDoor(essef, outside);
-		this.createNorthDoor(outside, essef);
-
-		this.createEastDoor(campusCenter, outside);
-		this.createWestDoor(outside, campusCenter);
-
-		this.createEastDoor(outside, holyCross);
-		this.createWestDoor(holyCross, outside);
-
-		this.createSouthDoor(outside, admin);
-		this.createNorthDoor(admin, outside);
-
-		this.createEastDoor(admin, lab);
-		this.createWestDoor(lab, admin);
-
-		this.createSouthDoor(admin, janoskiOffice);
-		this.createNorthDoor(janoskiOffice, admin);
-
-		this.createWestDoor(admin, slivaOffice);
-		this.createEastDoor(slivaOffice, admin);
-
-		this.createSouthDoor(lab, classroom);
-		this.createNorthDoor(classroom, lab);
+		
+		createDoor(essef, "south" , null, outside);
+		createDoor(outside, "north", "essef key", essef);
+		
+		createDoor(outside, "south", null, admin);
+		createDoor(admin, "north", null, outside);
+		
+		createDoor(admin, "south", null, janoskiOffice);
+		createDoor(janoskiOffice, "north", null, admin);
+		
+		createDoor(lab, "south", null, classroom);
+		createDoor(classroom, "north", null, lab);
+		
+		createDoor(campusCenter, "east", null, outside);
+		createDoor(outside, "west", null, campusCenter);
+		
+		createDoor(outside, "east", null, holyCross);
+		createDoor(holyCross, "west", null, outside);
+		
+		createDoor(admin, "east", null, lab);
+		createDoor(lab, "west", null, admin);
+		
+		createDoor(admin, "west", null, slivaOffice);
+		createDoor(slivaOffice, "east", null, admin);
+		
+		
+		// Adding all the items into their rooms
+		
+		outside.addItem(createItem(new Item("essef key", 0, 0, "The key to essef")));
+		essef.addItem(createItem(new Item("tire", 0, 1, "a sad tire")));
+		holyCross.addItem(createItem(new Item("rusty nail", 0, 0, "ouch")));
+	
 	}
 }
