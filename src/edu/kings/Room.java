@@ -86,7 +86,7 @@ public class Room {
 		}
 		retVal += "\n Items: ";
 		for (int i = 0; i < itemsInRoom.size(); i++ ) {
-			retVal += itemsInRoom.get(i).getItem() + " ";
+			retVal += itemsInRoom.get(i).toString() + "  ";
 		}
 		return retVal + "\n";
 	}

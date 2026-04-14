@@ -92,6 +92,10 @@ public class Game {
 				lockDoor(command);
 			} else if (commandWord == CommandEnum.UNLOCK) {
 				unlockDoor(command);
+			} else if (commandWord == CommandEnum.UNPACK) {
+				unPack(command);
+			} else if (commandWord == CommandEnum.PACK) {
+				
 			}
 			
 			else {
@@ -429,7 +433,42 @@ public class Game {
 		}
 	}
 
+	
+	
+	public void unPack(Command command) {
+		if (!command.hasSecondWord()) {
+			Writer.println("Unpack what? ");
+		} else {
+			String container = command.getRestOfLine();
+			boolean val = false;
+				for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+					if (collei.getCurrentRoom().getItems().get(i).getItem().equals(container)) {
+						if(collei.getCurrentRoom().getItems().get(i) instanceof Container == true) {
+							Writer.println("What item would you like to unpack?");
+							String theAnswer = Reader.getResponse();
+							for (int index = 0; index < ((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().size(); index++) {
+								if (((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index).getItem().equals(theAnswer)) {
+									collei.setInventory(((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index));
+									((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().remove(index);
+									Writer.println("The item has been unpacked. ");
+									val = true;
+								} else {
+									Writer.println("There is no such item in this container. ");
+								}
+							}
+						} else {
+							Writer.println("That item is not a container. ");
+						}
+					} else if (val = false) {
+					Writer.println("That item is not in this room. ");
+					}
+				}
+		}
+	}
+	
+	
+	
+	
 }
-
 
 

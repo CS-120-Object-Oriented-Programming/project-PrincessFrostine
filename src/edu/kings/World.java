@@ -1,5 +1,6 @@
 package edu.kings;
 import java.util.HashMap;
+import java.util.ArrayList;
 /**
  * This class represents the entire world that makes up the "Campus of Kings"
  * application. "Campus of Kings" is a very simple, text based adventure game.
@@ -16,7 +17,7 @@ import java.util.HashMap;
 public class World {
 	/** The rooms in the world. */
 	private HashMap<String, Room> rooms;
-
+	private ArrayList<Item> items = new ArrayList<>();
 	/**
 	 * Constructor for the world.
 	 */
@@ -53,6 +54,10 @@ public class World {
 	
 	private Item createItem(Item newItem)  {
 		return newItem;
+	}
+	
+	private Container createContainer(Container newContainer)  {
+		return newContainer;
 	}
 	/**
 	* Helper method for creating doors between rooms.
@@ -126,6 +131,8 @@ public class World {
 		// Adding all the items into their rooms
 		
 		outside.addItem(createItem(new Item("essef key", 0, 0, "The key to essef")));
+		items.add(new Item("key", 0, 0, "a random key"));
+		outside.addItem(createContainer(new Container("box", 0, 0, "a random box", items)));
 		essef.addItem(createItem(new Item("tire", 0, 1, "a sad tire")));
 		holyCross.addItem(createItem(new Item("rusty nail", 0, 0, "ouch")));
 	
