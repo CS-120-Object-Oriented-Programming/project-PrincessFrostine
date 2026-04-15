@@ -132,7 +132,7 @@ public class World {
 		
 		outside.addItem(createItem(new Item("essef key", 0, 0, "The key to essef")));
 		items.add(new Item("key", 0, 0, "a random key"));
-		outside.addItem(createContainer(new Container("box", 0, 0, "a random box", items)));
+		outside.addItem(createContainer(new Container("box", 0, 1, "a random box", items)));
 		essef.addItem(createItem(new Item("tire", 0, 1, "a sad tire")));
 		holyCross.addItem(createItem(new Item("rusty nail", 0, 0, "ouch")));
 	

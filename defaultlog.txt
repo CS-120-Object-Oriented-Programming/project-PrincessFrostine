@@ -8,23 +8,10 @@ Outside: outside in the center of the King's College campus.
  Items: essef key: The key to essef  box: a random box
 The box has: [key: a random key]  
 
-> unpack box
-What item would you like to unpack?
-essef key
-There is no such item in this container. 
-> key
-I don't know what you mean...
-> unpack essef key
+> pack key
+That item is not available. 
+> pack essef key
+What would you like to pack it in? 
+pack key
 That item is not a container. 
-> unpack box
-What item would you like to unpack?
-key
-Succsessfuly picked up key. 
-The item has been unpacked. 
-> inventory
-[key: a random key]
-> take essef key
-Succsessfuly picked up essef key. 
-> inventory
-[key: a random key, essef key: The key to essef]
 > 

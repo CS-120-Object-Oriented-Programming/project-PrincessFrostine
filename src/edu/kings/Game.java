@@ -95,7 +95,7 @@ public class Game {
 			} else if (commandWord == CommandEnum.UNPACK) {
 				unPack(command);
 			} else if (commandWord == CommandEnum.PACK) {
-				
+				pack(command);
 			}
 			
 			else {
@@ -307,7 +307,56 @@ public class Game {
 	private void myInventory(){
 		 Writer.println(collei.getInventory());
 	}
-
+	
+	
+	
+	private void pack(Command command) {
+		if(!command.hasSecondWord()) {
+			Writer.println("Pack what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			boolean val = true;
+			boolean isInRoom = false;
+			boolean isInInventory = false;
+			
+			for(int i = 0; i < collei.getCurrentRoom().getItems().size(); i++) {
+				if(collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+					Writer.println("What would you like to pack it in? ");
+					String containerItem = Reader.getResponse();
+					isInRoom = true;
+					for(int index = 0; index < collei.getCurrentRoom().getItems().size(); index++) {
+						val = false;
+						if(collei.getCurrentRoom().getItems().get(index) instanceof Container && collei.getCurrentRoom().getItems().get(index).getItem().equals(containerItem)) {
+							((Container)collei.getCurrentRoom().getItems().get(index)).addItem(collei.getCurrentRoom().getItems().get(i));
+							collei.getCurrentRoom().getItems().remove(collei.getCurrentRoom().getItems().get(i));
+							Writer.println("The item has been packed into the container. ");
+							val = true;
+						} 
+					}
+				}
+			} for(int anotherI = 0; anotherI < collei.getInventory().size(); anotherI++) {
+				if(collei.getInventory().get(anotherI).getItem().equals(theItem)) {
+					Writer.println("What would you like to pack it in? ");
+					String newContainerItem = Reader.getResponse();
+					isInInventory = true;
+					for(int anotherIndex = 0; anotherIndex < collei.getCurrentRoom().getItems().size(); anotherIndex++) {
+						val = false;
+						if(collei.getCurrentRoom().getItems().get(anotherIndex) instanceof Container && collei.getCurrentRoom().getItems().get(anotherIndex).getItem().equals(newContainerItem)) {
+							((Container)collei.getCurrentRoom().getItems().get(anotherIndex)).addItem(collei.getInventory().get(anotherI));
+							collei.getCurrentRoom().getItems().remove(collei.getInventory().get(anotherI));
+							Writer.println("The item has been packed into the container. ");
+							val = true;
+						}
+					}
+				}		
+			} if(val == false) {
+				Writer.println("That item is not a container. ");
+			} if (isInRoom == false && isInInventory == false) {
+				Writer.println("That item is not available. ");
+			} 
+		}
+	}
+	
 	
 	
 	/**
@@ -338,6 +387,29 @@ public class Game {
 
 	
 	
+	/**
+	* Prints out the current location and exits.
+	*/
+	private void printLocationInformation() {
+		Writer.println(collei.getCurrentRoom().toString());
+	}
+	
+	
+	
+	/**
+	 * Print out the opening message for the player.
+	 */
+	private void printWelcome() {
+		Writer.println();
+		Writer.println("Welcome to the Campus of Kings!");
+		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
+		Writer.println("Type 'help' if you need help.");
+		Writer.println();
+		printLocationInformation();
+	}
+	
+	
+	
 	/** Taking an item from the world and adding it to the players inventory. */
 	private void takeItem(Command command) {
 		Boolean val = false;
@@ -356,20 +428,6 @@ public class Game {
 			}
 		}
 	}
-	
-	
-	
-	/**
-	 * Print out the opening message for the player.
-	 */
-	private void printWelcome() {
-		Writer.println();
-		Writer.println("Welcome to the Campus of Kings!");
-		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
-		Writer.println("Type 'help' if you need help.");
-		Writer.println();
-		printLocationInformation();
-	}
 
 	
 	
@@ -381,16 +439,6 @@ public class Game {
 	 *            The command to be processed.
 	 * @return true, if this command quits the game, false otherwise.
 	 */
-	
-	/**
-	* Prints out the current location and exits.
-	*/
-	private void printLocationInformation() {
-		Writer.println(collei.getCurrentRoom().toString());
-	}
-	
-	
-	
 	private boolean quit(Command command) {
 		boolean wantToQuit = true;
 		if (command.hasSecondWord()) {
@@ -435,34 +483,38 @@ public class Game {
 
 	
 	
+	/** The command to get an item from a container. */
 	public void unPack(Command command) {
 		if (!command.hasSecondWord()) {
 			Writer.println("Unpack what? ");
 		} else {
 			String container = command.getRestOfLine();
 			boolean val = false;
-				for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
-					if (collei.getCurrentRoom().getItems().get(i).getItem().equals(container)) {
-						if(collei.getCurrentRoom().getItems().get(i) instanceof Container == true) {
-							Writer.println("What item would you like to unpack?");
-							String theAnswer = Reader.getResponse();
-							for (int index = 0; index < ((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().size(); index++) {
-								if (((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index).getItem().equals(theAnswer)) {
-									collei.setInventory(((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index));
-									((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().remove(index);
-									Writer.println("The item has been unpacked. ");
-									val = true;
-								} else {
-									Writer.println("There is no such item in this container. ");
-								}
+			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(container)) {
+					if(collei.getCurrentRoom().getItems().get(i) instanceof Container == true) {
+						Writer.println("What item would you like to unpack?");
+						String theAnswer = Reader.getResponse();
+						for (int index = 0; index < ((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().size(); index++) {
+							if (((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index).getItem().equals(theAnswer)) {
+								collei.setInventory(((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index));
+								((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().remove(index);
+								Writer.println("The item has been unpacked. ");
+								val = true;
+							} else if(val == false){
+								Writer.println("There is no such item in this container. ");
+								val = true;
 							}
-						} else {
-							Writer.println("That item is not a container. ");
 						}
-					} else if (val = false) {
-					Writer.println("That item is not in this room. ");
+					} else {
+						Writer.println("That item is not a container. ");
+						val = true;
 					}
 				}
+			} if (val == false) {
+				Writer.println("That item is not in this room. ");
+			}
+			
 		}
 	}
 	
