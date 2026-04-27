@@ -14,6 +14,8 @@ public enum CommandEnum {
 	UNLOCK ("unlock"),
 	UNPACK ("unpack"),
 	PACK ("pack"),
+	TALK ("talk"),
+	KICK ("kick"),
 	GO ("go");
 	
 	

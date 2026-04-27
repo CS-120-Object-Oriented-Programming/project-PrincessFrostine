@@ -30,7 +30,7 @@ public class Game {
 	public Game() {
 		world = new World();
 		// set the starting room
-		collei = new Player(world.getRoom("outside"), new ArrayList<>());
+		collei = new Player(world.getRoom("B3"), new ArrayList<>());
 	}
 	
 	/**
@@ -42,12 +42,32 @@ public class Game {
 		// Enter the main game loop. Here we repeatedly read commands and
 		// execute them until the game is over.
 		boolean wantToQuit = false;
-		while (!wantToQuit) {
+		boolean goodEnding = false;
+		boolean badEnding = false;
+		boolean mehEnding = false;
+		
+		while (!wantToQuit && !goodEnding && !badEnding && !mehEnding) {
 			Command command = Reader.getCommand();
 			wantToQuit = processCommand(command);
+			if (collei.getCurrentRoom().getName() == "B1") {
+				goodEnding = true;
+			} else if (collei.getCurrentRoom().getName() == "D1") {
+				badEnding = true;
+			} else if (collei.getCurrentRoom().getName() == "Trashcan") {
+				mehEnding = true;
+			}
 			// other stuff that needs to happen every turn can be added here.
 		}
-		printGoodbye();
+		if (wantToQuit == true && goodEnding == false) {
+			printGoodbye();
+		} else if (goodEnding == true) {
+			printGoodEnding();
+		} else if (badEnding == true) {
+			printBadEnding();
+		} else if (mehEnding == true) {
+			printMehEnding();
+		}
+		
 	}
 
 	///////////////////////////////////////////////////////////////////////////
@@ -96,6 +116,10 @@ public class Game {
 				unPack(command);
 			} else if (commandWord == CommandEnum.PACK) {
 				pack(command);
+			} else if (commandWord == CommandEnum.TALK) {
+				talk(command);
+			} else if (commandWord == CommandEnum.KICK) {
+				kick(command);
 			}
 			
 			else {
@@ -120,6 +144,7 @@ public class Game {
 			String theItem = command.getRestOfLine();
 			for (int i = 0; i < collei.getInventory().size(); i++ ) {
 				if (collei.getInventory().get(i).getItem().equals(theItem)) {
+					score -= collei.getInventory().get(i).getScore();
 					collei.getCurrentRoom().getItems().add(collei.getInventory().get(i));
 					Writer.println("you dropped " + collei.getInventory().get(i) );
 					collei.getInventory().remove(i);
@@ -241,6 +266,26 @@ public class Game {
 					Writer.println("The door is locked. ");
 					val = true;
 				}
+			} if (direction.equals("up")) {
+				if (collei.getCurrentRoom().getExit(direction) == null) {
+					
+				} else if (collei.getCurrentRoom().getExit(direction).isLocked() == false) {
+					doorway = collei.getCurrentRoom().getExit(direction);
+					val = true;
+				} else {
+					Writer.println("The door is locked. ");
+					val = true;
+				}
+			} if (direction.equals("down")) {
+				if (collei.getCurrentRoom().getExit(direction) == null) {
+					
+				} else if (collei.getCurrentRoom().getExit(direction).isLocked() == false) {
+					doorway = collei.getCurrentRoom().getExit(direction);
+					val = true;
+				} else {
+					Writer.println("The door is locked. ");
+					val = true;
+				}
 			}
 			if (doorway == null) {
 				if (val == false) {
@@ -254,6 +299,35 @@ public class Game {
 				turns++;
 			}
 			
+		}
+	}
+	
+	
+	private void kick(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Kick what? ");
+		} else {
+			String theItem = command.getRestOfLine();
+			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+					val = true;
+					if(collei.getCurrentRoom().getItems().get(i) instanceof KickItems) {
+						if(((KickItems)collei.getCurrentRoom().getItems().get(i)).getCanKick() == true) {
+							((KickItems)collei.getCurrentRoom().getItems().get(i)).setCanKick(false);
+							score += collei.getCurrentRoom().getItems().get(i).getScore();
+							Writer.println("You have kicked the " + collei.getCurrentRoom().getItems().get(i).getItem() + ". ");
+							
+						} else {
+							Writer.println("You have already kicked this item. ");
+						}
+					} else {
+						Writer.println("You cannot kick that item. ");
+					}
+				}
+			} if (val == false) {
+				Writer.println("There is no such item. ");
+			}
 		}
 	}
 	
@@ -342,8 +416,9 @@ public class Game {
 					for(int anotherIndex = 0; anotherIndex < collei.getCurrentRoom().getItems().size(); anotherIndex++) {
 						val = false;
 						if(collei.getCurrentRoom().getItems().get(anotherIndex) instanceof Container && collei.getCurrentRoom().getItems().get(anotherIndex).getItem().equals(newContainerItem)) {
+							score -= collei.getInventory().get(anotherI).getScore();
 							((Container)collei.getCurrentRoom().getItems().get(anotherIndex)).addItem(collei.getInventory().get(anotherI));
-							collei.getCurrentRoom().getItems().remove(collei.getInventory().get(anotherI));
+							collei.getInventory().remove(collei.getInventory().get(anotherI));
 							Writer.println("The item has been packed into the container. ");
 							val = true;
 						}
@@ -359,15 +434,29 @@ public class Game {
 	
 	
 	
+	private void printBadEnding() {
+		Writer.println("Oh No! You have been eaten by the fox! ");
+		Writer.println("You have earned " + score + " points in " + turns + " turns");
+		Writer.println("Thank you for playing.  Good bye.");
+	}
 	/**
 	 * Print out the closing message for the player.
 	 */
 	private void printGoodbye() {
-		Writer.println("I hope you weren't too bored here on the Campus of Kings!");
+		Writer.println("I hope you weren't too bored playing 'A Bunny Adventure'!");
 		Writer.println("You have earned " + score + " points in " + turns + " turns");
 		Writer.println("Thank you for playing.  Good bye.");
 	}
 
+	
+	
+	private void printGoodEnding() {
+		score += 100;
+		Writer.println("You have made it to the garden! You get to eat all the carrots! ");
+		Writer.println("You have earned " + score + " points in " + turns + " turns");
+		Writer.println("Thank you for playing.  Good bye.");
+	}
+	
 	
 	
 	/**
@@ -396,14 +485,25 @@ public class Game {
 	
 	
 	
+	private void printMehEnding() {
+		score += 50;
+		Writer.println("The human saw you! You have been adopted by the humans. ");
+		Writer.println("You have earned " + score + " points in " + turns + " turns");
+		Writer.println("Thank you for playing.  Good bye.");
+	}
+	
+	
+	
 	/**
 	 * Print out the opening message for the player.
 	 */
 	private void printWelcome() {
 		Writer.println();
-		Writer.println("Welcome to the Campus of Kings!");
-		Writer.println("Campus of Kings is a new, incredibly boring adventure game.");
-		Writer.println("Type 'help' if you need help.");
+		Writer.println("Welcome to the silly game I made. It is called 'A Bunny Adventure'. ");
+		Writer.println("You are a Rabbit named Collei trying to get into the Humans garden, so you can eat all of their carrots. ");
+		Writer.println("There are a few endings to this adventure so be weary! ");
+		Writer.println("Hopefully you have fun during this adventure! ");
+		Writer.println("And don't forgot you can type 'help' if you need any help.");
 		Writer.println();
 		printLocationInformation();
 	}
@@ -419,6 +519,7 @@ public class Game {
 			String theItem = command.getRestOfLine();
 			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
 				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+					score += collei.getCurrentRoom().getItems().get(i).getScore();
 					collei.setInventory(collei.getCurrentRoom().getItems().get(i));
 					collei.getCurrentRoom().getItems().remove(i);
 					val = true;
@@ -431,6 +532,33 @@ public class Game {
 
 	
 	
+	private void talk(Command command) {
+		Boolean val = false;
+		if (!command.hasSecondWord()) {
+			Writer.println("Talk to who? ");
+		} else {
+			String theNPC = command.getRestOfLine();
+			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theNPC)) {
+					val = true;
+					if (collei.getCurrentRoom().getItems().get(i) instanceof NPC) {
+						if (((NPC)collei.getCurrentRoom().getItems().get(i)).getCanTalk() == true) {
+							((NPC)collei.getCurrentRoom().getItems().get(i)).setCanTalk(false);
+							Writer.println("Collei says '" + ((NPC)collei.getCurrentRoom().getItems().get(i)).getPlayerR() + "'");
+							Writer.println("The " + collei.getCurrentRoom().getItems().get(i).getItem() + " reply with '" + ((NPC)collei.getCurrentRoom().getItems().get(i)).getResponse() + "'");
+							score += collei.getCurrentRoom().getItems().get(i).getScore();
+						} else {
+							Writer.println("You have already talked to the " + collei.getCurrentRoom().getItems().get(i).getItem());
+						}
+					} else {
+						Writer.println("That is not an NPC");
+					}
+				}
+			} if (val == false) {
+				Writer.println("That person is not here. ");
+			}
+		}
+	}
 	/**
 	 * "Quit" was entered. Check the rest of the command to see whether we
 	 * really quit the game.
@@ -497,6 +625,7 @@ public class Game {
 						String theAnswer = Reader.getResponse();
 						for (int index = 0; index < ((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().size(); index++) {
 							if (((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index).getItem().equals(theAnswer)) {
+								score += ((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index).getScore();
 								collei.setInventory(((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().get(index));
 								((Container)collei.getCurrentRoom().getItems().get(i)).getContainerInventory().remove(index);
 								Writer.println("The item has been unpacked. ");
@@ -514,7 +643,6 @@ public class Game {
 			} if (val == false) {
 				Writer.println("That item is not in this room. ");
 			}
-			
 		}
 	}
 	

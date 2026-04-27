@@ -18,7 +18,8 @@ public class CommandWords {
 	{CommandEnum.GO, CommandEnum.QUIT, CommandEnum.HELP, CommandEnum.LOOK, 
 	CommandEnum.BACK, CommandEnum.STATUS, CommandEnum.EXAMINE, 
 	CommandEnum.INVENTORY, CommandEnum.DROP, CommandEnum.TAKE,
-	CommandEnum.LOCK, CommandEnum.UNLOCK, CommandEnum.UNPACK, CommandEnum.PACK};
+	CommandEnum.LOCK, CommandEnum.UNLOCK, CommandEnum.UNPACK, CommandEnum.PACK,
+	CommandEnum.TALK, CommandEnum.KICK};
 	
 	/**
 	Converts a String into a CommandEnum object.
@@ -59,6 +60,11 @@ public class CommandWords {
 			return CommandEnum.UNPACK;
 		case("pack"):
 			return CommandEnum.PACK;
+		case("talk"):
+			return CommandEnum.TALK;
+		case("kick"):
+			return CommandEnum.KICK;
+		case(null):
 		default:
 			return null;
 		}

@@ -1,17 +1,15 @@
 
-Welcome to the Campus of Kings!
-Campus of Kings is a new, incredibly boring adventure game.
-Type 'help' if you need help.
+Welcome to the silly game I made. It is called 'A Bunny Adventure'. 
+You are a Rabbit named Collei trying to get into the Humans garden, so you can eat all of their carrots. 
+There are a few endings to this adventure so be weary! 
+Hopefully you have fun during this adventure! 
+And don't forgot you can type 'help' if you need any help.
 
-Outside: outside in the center of the King's College campus.
- Exits: east south north west 
- Items: essef key: The key to essef  box: a random box
-The box has: [key: a random key]  
+B3: It is an open grassy plain with paths to the north, east, and west. You see a barn to the east. 
+ Exits: east north west 
+ Items: 
 
-> pack key
-That item is not available. 
-> pack essef key
-What would you like to pack it in? 
-pack key
-That item is not a container. 
-> 
+> quit
+I hope you weren't too bored playing 'A Bunny Adventure'!
+You have earned 0 points in 0 turns
+Thank you for playing.  Good bye.

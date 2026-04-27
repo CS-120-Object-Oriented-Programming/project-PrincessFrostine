@@ -27,7 +27,7 @@ public class Container extends Item{
 				if(containerInventory.get(i).getItem().equals(itemName)) {
 					containerInventory.remove(i);
 				} else {
-					Writer.println("That item is not in here");
+					Writer.println("That item is not in here. ");
 				}
 			}
 		}

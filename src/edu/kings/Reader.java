@@ -64,7 +64,7 @@ public class Reader {
         Command result = null;
         if (CommandWords.isCommand(CommandWords.getCommand(word1))) {
             result = new Command(CommandWords.getCommand(word1), restOfLine);
-        }
+        } 
         else {
             result = new Command(null, restOfLine);
         }
