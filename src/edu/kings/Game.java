@@ -30,7 +30,7 @@ public class Game {
 	public Game() {
 		world = new World();
 		// set the starting room
-		collei = new Player(world.getRoom("B3"), new ArrayList<>());
+		collei = new Player(world.getRoom("A1"), new ArrayList<>());
 	}
 	
 	/**
@@ -464,8 +464,7 @@ public class Game {
 	 * message and a list of the command words.
 	 */
 	private void printHelp() {
-		Writer.println("You are lost. You are alone. You wander");
-		Writer.println("around at the university.");
+		Writer.println("You are lost. ");
 		Writer.println();
 		Writer.println("Your command words are:");
 		for (CommandEnum commandWord: CommandEnum.values()) {
@@ -518,7 +517,9 @@ public class Game {
 		} else {
 			String theItem = command.getRestOfLine();
 			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
-				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem)) {
+				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem) && collei.getCurrentRoom().getItems().get(i) instanceof Container == false  
+					&& collei.getCurrentRoom().getItems().get(i) instanceof NPC == false
+					&& collei.getCurrentRoom().getItems().get(i) instanceof KickItems == false) {
 					score += collei.getCurrentRoom().getItems().get(i).getScore();
 					collei.setInventory(collei.getCurrentRoom().getItems().get(i));
 					collei.getCurrentRoom().getItems().remove(i);

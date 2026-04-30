@@ -86,7 +86,11 @@ public class Room {
 		}
 		retVal += "\n Items: ";
 		for (int i = 0; i < itemsInRoom.size(); i++ ) {
+			if (itemsInRoom.get(i) instanceof NPC) {
+				
+			} else {
 			retVal += itemsInRoom.get(i).toString() + "  ";
+			}
 		}
 		return retVal + "\n";
 	}

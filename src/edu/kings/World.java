@@ -88,29 +88,29 @@ public class World {
 	 */
 	private void createRooms() {
 		// Creating all the rooms.
-		Room A1 = new Room ("A1", "It is a small clearing between the next house and the gate to the garden. ");
-		Room A2 = new Room ("A2", "It is another small clearing alongside the house. ");
-		Room A3 = new Room ("A3", "It is a small clearing between the houses. ");
+		Room A1 = new Room ("A1", "It is a small clearing between the next house and the gate to the garden. The gate to the garden is to the east. ");
+		Room A2 = new Room ("A2", "It is a small clearing alongside the house. You can see the garden fence to the north east of you. ");
+		Room A3 = new Room ("A3", "It is a small clearing between the houses. You see some paw tracts heading to the east. ");
 		Room A4 = new Room ("A4", "Another small clearing that is surrounded by grass. ");
-		Room A5 = new Room ("A5", "You see the mail box of the house. You remember seeing the human herer earlier. Maybe the gate key is in here. ");
+		Room A5 = new Room ("A5", "You see the mail box of the house. You remember seeing the human here earlier. Maybe the gate key is in here. ");
 		
 		Room B1 = new Room ("B1", "The Garden.");
 		Room B2 = new Room ("B2", "The house. It is a brick house with grey shingles on the roof. It looks like the humans are home. ");
-		Room B3 = new Room ("B3", "It is an open grassy plain with paths to the north, east, and west. You see a barn to the east. ");
+		Room B3 = new Room ("B3", "It is an open grassy plain with paths to the north, east, and west. You see a shed to the east. ");
 		Room B4 = new Room ("B4", "You see a box key on the ground in the middle of the clearing. ");
 		Room B5 = new Room ("B5", "You enter onto a concrete sidewalk. You can see the human’s mailbox to the west in the distance. ");
 		
 		Room C1 = new Room ("C1", "It is a grassy clearing. You can see the garden westward, but you cannot get into it. ");
-		Room C2 = new Room ("C2", "There are two mice arguing about who gets the trash can. Maybe you can jump up onto it to see the key to the Garden? You also see fox tracts heading northeast.");
-		Room C3 = new Room ("C3", "A grassy clearing. You can see fox tracts heading north. You can see the door to the shed towards the east. ");
+		Room C2 = new Room ("C2", "There are two mice arguing about who gets the trash can. Maybe if you claim it the mice will leave it alone? You also see paw prints heading northeast. ");
+		Room C3 = new Room ("C3", "A grassy clearing. You can see paw tracts heading north. You can see the door to the shed towards the east. ");
 		Room C4 = new Room ("C4", "A grassy clearing. ");
 		Room C5 = new Room ("C5", "You are now on the side walk by the house. You can see the human’s mailbox towards the west in the distance. ");
 		
 		Room D1 = new Room ("D1", "The fox! ");
-		Room D2 = new Room ("D2", "A small broom closet in the barn. ");
-		Room D3 = new Room ("D3", "The inside of the barn. It is old and dusty. You can see three doors.");
-		Room D4 = new Room ("D4", "A small closet in the barn. It's got some straw and rotten carrots strewed about. ");
-		Room D5 = new Room ("D5", " You can see an abandoned rabbit burrow to the east. You may be able to dig into the barn this way. ");
+		Room D2 = new Room ("D2", "A small broom closet in the shed. ");
+		Room D3 = new Room ("D3", "The inside of the shed. It is old and dusty. You can see three doors.");
+		Room D4 = new Room ("D4", "A small closet in the shed. It's got some straw and rotten carrots strewed about. ");
+		Room D5 = new Room ("D5", " You can see an abandoned rabbit burrow to the east. You may be able to dig into the shed this way. ");
 		
 		Room E2_1 = new Room ("E2.1", "You see a human statue.  It is a small statue of a man with a flowy beard and crinkled eyes. There is a plaque on it that reads “King Kandy”.  ");
 		Room E3_1 = new Room ("E3.1", "You see a closed enclosure. You see four rabbits stuck in the enclosure. You cannot open the enclosure from here. Maybe you can find another way in. ");
