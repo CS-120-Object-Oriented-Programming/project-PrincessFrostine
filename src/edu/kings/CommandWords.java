@@ -14,27 +14,76 @@ package edu.kings;
 
 public class CommandWords {
 	/** A constant array that holds all valid command words. */
-	private static String[] validCommands;
-
+	private static CommandEnum[] validCommands =
+	{CommandEnum.GO, CommandEnum.QUIT, CommandEnum.HELP, CommandEnum.LOOK, 
+	CommandEnum.BACK, CommandEnum.STATUS, CommandEnum.EXAMINE, 
+	CommandEnum.INVENTORY, CommandEnum.DROP, CommandEnum.TAKE,
+	CommandEnum.LOCK, CommandEnum.UNLOCK, CommandEnum.UNPACK, CommandEnum.PACK,
+	CommandEnum.TALK, CommandEnum.KICK};
+	
 	/**
-	 * Static block to initialize the fields of CommandWords.
-	 */
-	static {
-		String[] tempCommands = {"go", "quit", "help" };
-		validCommands = tempCommands;
-	}
+	Converts a String into a CommandEnum object.
 
+	@param theString The String containing the command word.
+	@return The CommandEnum object representing the command, or null if
+	the command does
+	not exist.
+	*/
+	
+	/** Takes the string version of the command and changes it to the command enum or does nothing if its not one.
+	 * @return matches what the reader puts in to the commandEnum. */
+	public static CommandEnum getCommand(String theString) {
+		switch(theString) {
+		case ("go"):
+			return CommandEnum.GO;
+		case ("help"):
+			return CommandEnum.HELP;
+		case ("look"):
+			return CommandEnum.LOOK;
+		case ("quit"):
+			return CommandEnum.QUIT;
+		case ("back"):
+			return CommandEnum.BACK;
+		case ("status"):
+			return CommandEnum.STATUS;
+		case ("examine"):
+			return CommandEnum.EXAMINE;
+		case ("inventory"):
+			return CommandEnum.INVENTORY;
+		case ("drop"):
+			return CommandEnum.DROP;
+		case ("take"):
+			return CommandEnum.TAKE;
+		case ("lock"):
+			return CommandEnum.LOCK;
+		case("unlock"):
+			return CommandEnum.UNLOCK;
+		case("unpack"):
+			return CommandEnum.UNPACK;
+		case("pack"):
+			return CommandEnum.PACK;
+		case("talk"):
+			return CommandEnum.TALK;
+		case("kick"):
+			return CommandEnum.KICK;
+		case(null):
+		default:
+			return null;
+		}
+	}
+	
+	
 	/**
 	 * Check whether a given String is a valid command word.
 	 *
-	 * @param aString The string to determine whether it is a valid command.
+	 * @param aCommandEnum The commandEnum to determine whether it is a valid command.
 	 * @return true if a given string is a valid command, false if it isn't.
 	 */
-	public static boolean isCommand(String aString) {
+	public static boolean isCommand(CommandEnum aCommandEnum) {
 		boolean valid = false;
 		int index = 0;
 		while (!valid && index < validCommands.length) {
-			if (validCommands[index].equals(aString)) {
+			if (validCommands[index].equals(aCommandEnum)) {
 				valid = true;
 			}
 			index++;

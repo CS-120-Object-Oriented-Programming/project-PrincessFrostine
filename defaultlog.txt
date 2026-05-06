@@ -1,0 +1,20 @@
+
+Welcome to the silly game I made. It is called 'A Bunny Adventure'. 
+You are a Rabbit named Collei trying to get into the Humans garden, so you can eat all of their carrots. 
+There are a few endings to this adventure so be weary! 
+Hopefully you have fun during this adventure! 
+And don't forgot you can type 'help' if you need any help.
+
+A1: It is a small clearing between the next house and the gate to the garden. The gate to the garden is to the east. 
+ Exits: east south 
+ Items: 
+
+> go south
+A2: It is a small clearing alongside the house. You can see the garden fence to the north east of you. 
+ Exits: south north 
+ Items: 
+
+> quit
+I hope you weren't too bored playing 'A Bunny Adventure'!
+You have earned 0 points in 1 turns
+Thank you for playing.  Good bye.
