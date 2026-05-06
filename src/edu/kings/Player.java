@@ -8,9 +8,11 @@ import java.util.ArrayList;
  * This is a brand new class.
  */
 public class Player {
-	// This means that the class Room has an object named room.
+	/** Stores the current room that the player is in. */
     private Room currentRoom;
+    /** Stores the room that the player was previously in. */
     private Room previousRoom;
+    /** Stores the players inventory. */
     private ArrayList<Item> inventory;
     
 	public Player(Room room, ArrayList<Item> inventory) {

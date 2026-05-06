@@ -2,6 +2,7 @@ package edu.kings;
 import java.util.ArrayList;
 
 public class Container extends Item{
+	/** This initializes an array that holds all of the items in a container. */
 	private ArrayList<Item> containerInventory = new ArrayList<>();
 	
 	
@@ -21,11 +22,11 @@ public class Container extends Item{
 	
 	public void removeItem(String itemName) {
 		if (containerInventory == null) {
-			
+			Writer.println("There is nothing in the container. ");
 		} else {
-			for(int i = 0; i < containerInventory.size(); i++) {
-				if(containerInventory.get(i).getItem().equals(itemName)) {
-					containerInventory.remove(i);
+			for(int index = 0; index < containerInventory.size(); index++) {
+				if(containerInventory.get(index).getItem().equals(itemName)) {
+					containerInventory.remove(index);
 				} else {
 					Writer.println("That item is not in here. ");
 				}

@@ -1,6 +1,7 @@
 package edu.kings;
 
 public enum CommandEnum {
+	/** All of the different Commands for the game. */
 	LOOK ("look"),
 	HELP ("help"),
 	STATUS ("status"),
@@ -18,11 +19,12 @@ public enum CommandEnum {
 	KICK ("kick"),
 	GO ("go");
 	
-	
+	/** Initializes the commands. */
 	private final String command;
 	private CommandEnum(String newCommand) {
-		command= newCommand;
+		command = newCommand;
 	}
+	
 	public String getCommand() {
 		return command; 
 	}

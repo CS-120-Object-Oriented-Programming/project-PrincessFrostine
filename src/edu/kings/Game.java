@@ -19,11 +19,12 @@ import java.util.ArrayList;
 public class Game {
 	/** The world where the game takes place. */
 	private World world;
-	/** The room the player character is currently in. */
-		Player collei;
+	/** The instance of player that we are controlling. */
+	private Player collei;
+	/** It keeps track of the score that the player has throughout the game. */
 	private int score;
+	/** It keeps track of the turns that the player has done. */
 	private int turns;
-	private ArrayList<Item> items;
 	/**
 	 * Create the game and initialize its internal map.
 	 */
@@ -135,7 +136,8 @@ public class Game {
 
 	
 	
-	/** Dropping an item and adding it to the room. */
+	/** Dropping an item and adding it to the room. 
+	 * @param command is what the reader puts into the game. */
 	private void dropItem(Command command) {
 		Boolean val = false;
 		if (!command.hasSecondWord()) {
@@ -158,7 +160,8 @@ public class Game {
 
 	
 	
-	/** How to examine items. */	
+	/** How to examine items. 
+	 * @param command is what the reader put into the game. */	
 	private void examineItem(Command command) {
 		Boolean val = false;
 		if (!command.hasSecondWord()) {
@@ -509,7 +512,8 @@ public class Game {
 	
 	
 	
-	/** Taking an item from the world and adding it to the players inventory. */
+	/** Taking an item from the world and adding it to the players inventory. 
+	 * @param command is what the player entered in the game. */
 	private void takeItem(Command command) {
 		Boolean val = false;
 		if (!command.hasSecondWord()) {
@@ -519,7 +523,8 @@ public class Game {
 			for (int i = 0; i < collei.getCurrentRoom().getItems().size(); i++ ) {
 				if (collei.getCurrentRoom().getItems().get(i).getItem().equals(theItem) && collei.getCurrentRoom().getItems().get(i) instanceof Container == false  
 					&& collei.getCurrentRoom().getItems().get(i) instanceof NPC == false
-					&& collei.getCurrentRoom().getItems().get(i) instanceof KickItems == false) {
+					&& collei.getCurrentRoom().getItems().get(i) instanceof KickItems == false) 
+				{
 					score += collei.getCurrentRoom().getItems().get(i).getScore();
 					collei.setInventory(collei.getCurrentRoom().getItems().get(i));
 					collei.getCurrentRoom().getItems().remove(i);
@@ -612,7 +617,8 @@ public class Game {
 
 	
 	
-	/** The command to get an item from a container. */
+	/** The command to get an item from a container. 
+	 * @param command is what the player had entered into the game. */
 	public void unPack(Command command) {
 		if (!command.hasSecondWord()) {
 			Writer.println("Unpack what? ");

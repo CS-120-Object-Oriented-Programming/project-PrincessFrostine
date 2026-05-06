@@ -25,6 +25,7 @@ public class Door {
 	/**
 	 * Constructor for the Door class.
 	 * @param destination The room this door leads to
+	 * @param theKey is what locks and unlocks the door
 	 */
 	public Door(Room destination, String theKey) {
 		this.destination = destination;

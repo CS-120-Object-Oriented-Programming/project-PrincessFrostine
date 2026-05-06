@@ -17,6 +17,7 @@ import java.util.ArrayList;
 public class World {
 	/** The rooms in the world. */
 	private HashMap<String, Room> rooms;
+	/** The list of items to be added to the container in A4. */
 	private ArrayList<Item> A4Items = new ArrayList<>();
 	/**
 	 * Constructor for the world.
@@ -73,6 +74,7 @@ public class World {
 	* @param from The room where the door originates.
 	* @param direction The direction of the door in the from room.
 	* @param to The room where the door goes.
+	* @param theKey is the key needed to unlock and lock a door in that direction.
 	*/
 	private void createDoor(Room from, String direction, String theKey, Room to) {
 		Door aDoor = new Door(to, theKey);

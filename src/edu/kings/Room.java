@@ -30,12 +30,14 @@ public class Room {
 	/** The hashmap to make the Rooms that exist and the keys for it. */
 	HashMap<String, Door> allDoors = new HashMap<>(); 
 	
-	/** Its supposed to add an item to the room. */
+	/** Its supposed to add an item to the room.
+	 * @param newItem is the item that we are adding to the room. */
 	public void addItem(Item newItem) {
 		itemsInRoom.add(newItem);
 	}
 	
-	/** Supposed to get the items in a room. */
+	/** Supposed to get the items in a room.
+	 * @return getItems just returns the list of items that are in the current room. */
 	public ArrayList<Item> getItems() {
 		return itemsInRoom;
 	}
@@ -52,6 +54,7 @@ public class Room {
 	* Gets a door in a specified direction if it exists.
 	*
 	* @return The door in the specified direction or null if it does not exist.
+	* @param direction is the string that we put in to specify where the exits of a room are.
 	*/
 	public Door getExit(String direction) {
 		return allDoors.get(direction);

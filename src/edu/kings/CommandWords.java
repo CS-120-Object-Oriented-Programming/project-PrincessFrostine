@@ -30,6 +30,8 @@ public class CommandWords {
 	not exist.
 	*/
 	
+	/** Takes the string version of the command and changes it to the command enum or does nothing if its not one.
+	 * @return matches what the reader puts in to the commandEnum. */
 	public static CommandEnum getCommand(String theString) {
 		switch(theString) {
 		case ("go"):
@@ -74,7 +76,7 @@ public class CommandWords {
 	/**
 	 * Check whether a given String is a valid command word.
 	 *
-	 * @param aString The string to determine whether it is a valid command.
+	 * @param aCommandEnum The commandEnum to determine whether it is a valid command.
 	 * @return true if a given string is a valid command, false if it isn't.
 	 */
 	public static boolean isCommand(CommandEnum aCommandEnum) {
